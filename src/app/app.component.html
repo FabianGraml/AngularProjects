@@ -1,23 +1,33 @@
-<table>
-	<tr>
-		<td>Start Value: </td>
-		<td><input type="text" [(ngModel)]="startValue" /></td>
-	</tr>
-	<tr>
-		<td>Height:</td>
-		<td><input type="text" [(ngModel)]="height" /></td>
-		
-	</tr>
-    <tr>
-        <td>
-			<a *ngIf="!(height >= 2)" style="color:red">Height must be >= 2</a>
-		</td>
-    </tr>
-	<tr>
-    <td></td>
-		<td><button class="btn btn-primary" type="button" (click)="calculate()" value="calculate" [disabled]="height<2">CALCULATE</button></td>
-	</tr>
-</table>
-<div *ngFor="let item of tower">
-<p>{{item}}</p>
+<h1>The ultimate Turmrechner</h1>
+<div class="content">
+  
+    <div>
+    <table>
+        <tr>
+            <td>Start Value:</td>
+            <td><input id="startInput" class="inputField" type="text" [(ngModel)]="startValue" /></td>
+        </tr>
+      <tr>
+          <td>
+            Height:
+          </td>
+        <td> 
+        <input id="heightInput" type="text" [(ngModel)]="heightValue" />
+    </td>
+      </tr>
+    </table>
+    </div>
+  
+    <div class="btnDiv">
+        <button class="btn btn-primary" type="button" (click)="calculate()" value="calculate"
+            [disabled]="heightValue<2">CALCULATE</button>
+    </div>
+    <div class="errorMsg">
+        <a *ngIf="!(heightValue >= 2)">Height must be >= 2</a>
+    </div>
+</div>
+<div class="result">
+    <table>
+        <tr class="tblRowResult" *ngFor="let turmItem of turm">{{turmItem}}</tr>
+    </table>
 </div>

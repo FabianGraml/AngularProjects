@@ -1,12 +1,5 @@
 import { Component } from '@angular/core';
 
-interface TowerItem {
-  towerBase: number;
-  towerOperator: string;
-  towerFactor: number;
-  towerResult: number;
-}
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,30 +7,24 @@ interface TowerItem {
 })
 export class AppComponent {
   startValue: number = 0;
-  height: number = 0;
+  heightValue: number = 0;
   isValid: boolean = false;
-  towerBase: number = 0;
-  tower: Array<string> = [];
-  towerLine: string = '';
-  currentTowerNumber: number = 0;
+  turmNumber: number = 0;
+  turm: Array<string> = [];
+  turmLine: string = '';
 
   calculate() {
-    this.tower = [];
-    this.towerBase = this.startValue;
-    for (let i = 2; i <= this.height; i++) {
-      this.towerLine =  (this.towerBase + '*' + i +'='+this.towerBase*i).toString();
-      this.tower.push(this.towerLine);
-      this.towerBase = this.towerBase*i;
-
+    this.turm = [];
+    this.turmNumber = this.startValue;
+    for (let i = 2; i <= this.heightValue; i++) {
+      this.turmLine =  (this.turmNumber + '*' + i +'='+this.turmNumber*i).toString();
+      this.turm.push(this.turmLine);
+      this.turmNumber = this.turmNumber*i;
     }
-    for (let i = 2; i <= this.height; i++) {
-    
-      this.towerLine =  (this.towerBase + '/' + i +'='+this.towerBase/i).toString();
-      this.tower.push(this.towerLine);
-      this.towerBase =  this.towerBase/i;
-       
+    for (let i = 2; i <= this.heightValue; i++) {
+      this.turmLine =  (this.turmNumber + '/' + i +'='+this.turmNumber/i).toString();
+      this.turm.push(this.turmLine);
+      this.turmNumber =  this.turmNumber/i;
     }
-    console.log(this.tower)
   }
-
 }
