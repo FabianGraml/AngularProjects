@@ -1,1 +1,81 @@
-<h1>The insane shopping list</h1>
+<body>
+    <h2>Budget (in EUR)</h2>
+    <div class="input-group mb-3">
+        <input [(ngModel)]="budget" type="text" class="form-control" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default">
+    </div>
+    <h3>Verfügbare Produkte Einkaufsliste</h3>
+    <hr>
+    <div class="parent">
+        <div class="productsTable">
+
+
+
+            <!--Table for the available products-->
+            <table class="table" style="float: left;">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Preis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of products">
+                        <th scope="col">{{product.name}}</th>
+                        <td scope="col">{{product.price}} €</td>
+                    </tr>
+                    <tr *ngIf="isAddFormVisible">
+                        <th><input [(ngModel)]="productName" type="text" class="form-control"
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></th>
+                        <td><input [(ngModel)]="productPrice" type="number" class="form-control"
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></td>
+                    </tr>
+                    <tr *ngIf="isAddFormVisible">
+                        <th><button class="btn btn-success" (click)="addProduct()"
+                                [disabled]="productName=='' || productPrice <= 0">Produkt hinzufügen</button></th>
+                        <td><button class="btn btn-danger"
+                                (click)="isAddFormVisible = false; isAddButtonVisible=true;">Abbrechen</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="cartTable">
+            <!--Table for the shopping cart-->
+            <table class="table" style="float: right;">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Menge</th>
+                        <th scope="col">Gesamtpreis</th>
+                        <th scope="col">Aktion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row"></th>
+                        <td style="font-weight: bold;">Gesamtpreis: </td>
+                        <td style="font-weight: bold; color: green;">{{total}}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+
+                            <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedProduct">
+                                <option *ngFor="let product of products" [value]=product.id>{{product.name}}</option>
+                            </select>
+
+                        </th>
+                        <td style="font-weight: bold;"><input [(ngModel)]="amount" type="number" class="form-control"
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></td>
+                        <td><button class="btn btn-success" [disabled]="selectedProduct <= 0 || amount <= 0" (click)="addToCart()">Hinzufügen</button></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <button *ngIf="isAddButtonVisible" class="btn btn-primary" (click)="add()">Produkt Hinzufügen</button>
+
+
+
+</body>
