@@ -1,1 +1,23 @@
-<h1>The insane Turmrechner</h1>
+<table>
+	<tr>
+		<td>Start Value: </td>
+		<td><input type="text" [(ngModel)]="startValue" /></td>
+	</tr>
+	<tr>
+		<td>Height:</td>
+		<td><input type="text" [(ngModel)]="height" /></td>
+		
+	</tr>
+    <tr>
+        <td>
+			<a *ngIf="!(height >= 2)" style="color:red">Height must be >= 2</a>
+		</td>
+    </tr>
+	<tr>
+    <td></td>
+		<td><button class="btn btn-primary" type="button" (click)="calculate()" value="calculate" [disabled]="height<2">CALCULATE</button></td>
+	</tr>
+</table>
+<div *ngFor="let item of tower">
+<p>{{item}}</p>
+</div>
