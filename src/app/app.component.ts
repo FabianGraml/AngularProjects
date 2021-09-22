@@ -54,6 +54,9 @@ export class AppComponent {
     this.productName = '';
   }
   addToCart(){
-      console.log(this.selectedProduct)
+
+     let productToAdd:Product = this.products[1]
+      this.cart.push({product: productToAdd, amount: this.amount, total: 0.0})
+      console.log(this.cart)
   }
 }
