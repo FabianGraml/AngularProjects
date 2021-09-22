@@ -9,10 +9,11 @@
       aria-describedby="inputGroup-sizing-default"
     />
   </div>
-  <h3>Verfügbare Produkte Einkaufsliste</h3>
   <hr />
   <div class="parent">
     <div class="productsTable">
+      <h3>Verfügbare Produkte</h3>
+
       <!--Table for the available products-->
       <table class="table" style="float: left">
         <thead>
@@ -81,6 +82,8 @@
       </table>
     </div>
     <div class="cartTable">
+      <h3>Einkaufsliste</h3>
+
       <!--Table for the shopping cart-->
       <table class="table" style="float: right">
         <thead>
@@ -93,9 +96,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of cart">
-            <th scope="row">{{ item.cartProduct.name }}</th>
-            <td style="font-weight: bold">{{ item.amount }}</td>
-            <td style="font-weight: bold; color: green">
+            <td>{{ item.cartProduct.name }}</td>
+            <td>{{ item.amount }}</td>
+            <td >
               {{ item.total | currency: "€ ":true }}
             </td>
             <td>
@@ -108,7 +111,7 @@
             <th scope="row"></th>
             <td style="font-weight: bold">Gesamtpreis:</td>
 
-            <td [ngStyle]="{ color: budget >= total ? 'green' : 'red' }">
+            <td style="font-weight: bold" [ngStyle]="{ color: budget >= total ? 'green' : 'red' }">
               {{ total | currency: "€ ":true }}
             </td>
 

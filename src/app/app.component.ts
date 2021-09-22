@@ -54,7 +54,7 @@ export class AppComponent {
   }
   addProduct(){
    
-    this.products.push({id: (this.products[this.products.length-1].id),name: this.productName, price: this.productPrice})
+    this.products.push({id: (this.products[this.products.length-1].id+1),name: this.productName, price: this.productPrice})
     this.productPrice = 0;
     this.productName = '';
   }
