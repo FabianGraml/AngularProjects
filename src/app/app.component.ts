@@ -5,11 +5,13 @@ interface Product {
   name: String,
   price: number,
 }
-interface Cart {
-  product: Product,
-  amount: number,
+interface CartItem {
+  id: number,
+  cartProduct: Product,
   total: number,
+  amount: number
 }
+
 
 @Component({
   selector: 'app-root',
@@ -20,19 +22,19 @@ export class AppComponent {
 
   title = 'angular-template';
   products: Product[] = [{
-    id: 1,
+    id: 0,
     name: 'Brot',
     price: 1.20
   }, {
-    id: 2,
+    id: 1,
     name: 'Milch',
     price: 0.90
   }, {
-    id: 3,
+    id: 2,
     name: 'Zipfer Märzen',
     price: 15.90
   }];
-  cart: Cart[] = [];
+  cart: CartItem[] = [];
   total: number = 0;
   budget:  number = 0;
   isAddFormVisible: Boolean = false;
@@ -41,22 +43,48 @@ export class AppComponent {
   productPrice: number = 0;
   isInputValid: Boolean = false;
   amount: number = 0;
+  cartItem: CartItem = {} as CartItem;
+  cartItems: CartItem[] = [];
   
-  selectedProduct: number = 0
+  selectedProduct: number = 1;
+  
   add(){
     this.isAddFormVisible = true;
     this.isAddButtonVisible = false;
   }
   addProduct(){
    
-    this.products.push({id: (this.products[this.products.length-1].id + 1),name: this.productName, price: this.productPrice})
+    this.products.push({id: (this.products[this.products.length-1].id),name: this.productName, price: this.productPrice})
     this.productPrice = 0;
     this.productName = '';
   }
   addToCart(){
-
-     let productToAdd:Product = this.products[1]
-      this.cart.push({product: productToAdd, amount: this.amount, total: 0.0})
+  
+    console.log(this.products[0])
+      this.cartItem = {
+        id: this.cart.length,
+        cartProduct: this.products[this.selectedProduct],
+        amount: this.amount,
+        total: this.amount * this.products[this.selectedProduct].price
+      }
+      this.cart.push(this.cartItem)
       console.log(this.cart)
+
+       this.total = 0;
+      for (let index = 0; index < this.cart.length; index++) {
+        this.total = this.cart[index].total + this.total
+
+      }
+
+      console.log(this.cart)
+
+  }
+  deleteCartItem(prodId: number){
+    this.total = 0;
+    this.cart.splice(prodId, 1);
+    for (let index = 0; index < this.cart.length; index++) {
+      this.total = this.cart[index].total + this.total
+
+    }
   }
 }

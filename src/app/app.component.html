@@ -1,81 +1,153 @@
 <body>
-    <h2>Budget (in EUR)</h2>
-    <div class="input-group mb-3">
-        <input [(ngModel)]="budget" type="text" class="form-control" aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-default">
+  <h2>Budget (in EUR)</h2>
+  <div class="input-group mb-3">
+    <input
+      [(ngModel)]="budget"
+      type="text"
+      class="form-control"
+      aria-label="Sizing example input"
+      aria-describedby="inputGroup-sizing-default"
+    />
+  </div>
+  <h3>Verfügbare Produkte Einkaufsliste</h3>
+  <hr />
+  <div class="parent">
+    <div class="productsTable">
+      <!--Table for the available products-->
+      <table class="table" style="float: left">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Preis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products">
+            <th scope="col">{{ product.name }}</th>
+            <td scope="col">{{ product.price | currency: "€ ":true }}</td>
+          </tr>
+          <tr *ngIf="isAddFormVisible">
+            <th>
+              <input
+                [(ngModel)]="productName"
+                type="text"
+                class="form-control"
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default"
+              />
+            </th>
+            <td>
+              <input
+                [(ngModel)]="productPrice"
+                type="number"
+                class="form-control"
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <button
+                *ngIf="isAddButtonVisible"
+                class="btn btn-primary"
+                (click)="add()"
+              >
+                Produkt Hinzufügen
+              </button>
+            </th>
+            <td></td>
+          </tr>
+          <tr *ngIf="isAddFormVisible">
+            <th>
+              <button
+                class="btn btn-success"
+                (click)="addProduct()"
+                [disabled]="productName == '' || productPrice <= 0"
+              >
+                Produkt hinzufügen
+              </button>
+            </th>
+            <td>
+              <button
+                class="btn btn-danger"
+                (click)="isAddFormVisible = false; isAddButtonVisible = true"
+              >
+                Abbrechen
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <h3>Verfügbare Produkte Einkaufsliste</h3>
-    <hr>
-    <div class="parent">
-        <div class="productsTable">
+    <div class="cartTable">
+      <!--Table for the shopping cart-->
+      <table class="table" style="float: right">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Menge</th>
+            <th scope="col">Gesamtpreis</th>
+            <th scope="col">Aktion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of cart">
+            <th scope="row">{{ item.cartProduct.name }}</th>
+            <td style="font-weight: bold">{{ item.amount }}</td>
+            <td style="font-weight: bold; color: green">
+              {{ item.total | currency: "€ ":true }}
+            </td>
+            <td>
+              <button class="btn btn-danger" [value]="item.id" (click)="deleteCartItem(item.id)">
+                Löschen
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"></th>
+            <td style="font-weight: bold">Gesamtpreis:</td>
 
+            <td [ngStyle]="{ color: budget >= total ? 'green' : 'red' }">
+              {{ total | currency: "€ ":true }}
+            </td>
 
-
-            <!--Table for the available products-->
-            <table class="table" style="float: left;">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Preis</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let product of products">
-                        <th scope="col">{{product.name}}</th>
-                        <td scope="col">{{product.price}} €</td>
-                    </tr>
-                    <tr *ngIf="isAddFormVisible">
-                        <th><input [(ngModel)]="productName" type="text" class="form-control"
-                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></th>
-                        <td><input [(ngModel)]="productPrice" type="number" class="form-control"
-                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></td>
-                    </tr>
-                    <tr *ngIf="isAddFormVisible">
-                        <th><button class="btn btn-success" (click)="addProduct()"
-                                [disabled]="productName=='' || productPrice <= 0">Produkt hinzufügen</button></th>
-                        <td><button class="btn btn-danger"
-                                (click)="isAddFormVisible = false; isAddButtonVisible=true;">Abbrechen</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="cartTable">
-            <!--Table for the shopping cart-->
-            <table class="table" style="float: right;">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Menge</th>
-                        <th scope="col">Gesamtpreis</th>
-                        <th scope="col">Aktion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row"></th>
-                        <td style="font-weight: bold;">Gesamtpreis: </td>
-                        <td style="font-weight: bold; color: green;">{{total}}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">
-
-                            <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedProduct">
-                                <option *ngFor="let product of products" [value]=product.id>{{product.name}}</option>
-                            </select>
-
-                        </th>
-                        <td style="font-weight: bold;"><input [(ngModel)]="amount" type="number" class="form-control"
-                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></td>
-                        <td><button class="btn btn-success" [disabled]="selectedProduct <= 0 || amount <= 0" (click)="addToCart()">Hinzufügen</button></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            <td></td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                [(ngModel)]="selectedProduct"
+              >
+                <option *ngFor="let product of products" [value]="product.id">
+                  {{ product.name }}
+                </option>
+              </select>
+            </th>
+            <td style="font-weight: bold">
+              <input
+                [(ngModel)]="amount"
+                type="number"
+                class="form-control"
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default"
+              />
+            </td>
+            <td>
+              <button
+                class="btn btn-success"
+                [disabled]="amount <= 0"
+                (click)="addToCart()"
+              >
+                Hinzufügen
+              </button>
+            </td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <button *ngIf="isAddButtonVisible" class="btn btn-primary" (click)="add()">Produkt Hinzufügen</button>
-
-
-
+  </div>
 </body>
