@@ -31,8 +31,8 @@ export class AppComponent {
     price: 0.90
   }, {
     id: 2,
-    name: 'Zipfer Märzen',
-    price: 15.90
+    name: 'Zucker',
+    price: 1.20
   }];
   cart: CartItem[] = [];
   total: number = 0;
