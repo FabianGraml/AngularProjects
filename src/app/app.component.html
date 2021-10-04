@@ -5,3 +5,19 @@
 <ul>
   <li *ngFor="let item of customers">{{item.lastname}}, {{item.firstname}} ({{item.id}})</li>
 </ul>
+
+<div>
+  <hr>
+<h3>Search user by Id</h3>
+<input [(ngModel)]="userToSearch">
+<p>{{customer|json}}</p>
+<button class="btn btn-success" (click)="getSingleUser()">Search user</button>
+</div>
+<hr>
+<div>
+  <h3>User to delete</h3>
+<input [(ngModel)]="userToDelete">
+<p></p>
+<button class="btn btn-success" (click)="deleteUser()">Delete User</button>
+
+</div>
