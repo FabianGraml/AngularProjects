@@ -16,7 +16,7 @@ function readPlaylists(){
     
     fs.readFile('.\\csv\\playlist.csv', 'utf-8',(err, res) => {
         if(err){
-            console.error('YEET');
+            console.error(err);
 
             return;
         }else{
