@@ -12,14 +12,15 @@ export default class Track{
 
     
     constructor(line:string){
-        const item = line.split('"').join('').split(",");
+        const newLine = line.replace(/(, )/g, '; ')
+        const item = newLine.split('"').join('').split(",");
         this.trackId = +item[0];
         this.trackName = item[1],
         this.albumId = +item[2];
         this.mediaTypeId = +item[3];
         this.genreId = +item[4];
         this.composer = item[5];
-        this.milliSeconds = +item[9];
+        this.milliSeconds = +item[6];
      
     }
 }

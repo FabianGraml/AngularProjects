@@ -1,4 +1,4 @@
-export default class Genre{
+export default class PlaylistTrack{
   
    // "PlaylistId","TrackId"
    // "1","3402"
@@ -7,8 +7,7 @@ export default class Genre{
     public trackId: Number = 0;
 
     constructor(line:string){
-        const item = line.split('"').join('').split(";");
-        console.log(item)
+        const item = line.split('"').join('').split(",");
         this.playlistId = +parseInt(item[0]);
         this.trackId = +parseInt(item[1]);
     }

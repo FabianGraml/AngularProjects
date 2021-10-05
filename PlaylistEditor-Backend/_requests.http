@@ -1,1 +1,4 @@
-GET http://localhost:8000/api/customers
+
+
+DELETE http://localhost:8000/api/track?playlistid=1&trackid=3389
+
