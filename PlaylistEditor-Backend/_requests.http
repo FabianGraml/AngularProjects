@@ -1,4 +1,28 @@
+@URL = http://localhost:8000
 
+### Get all playlists
+GET {{URL}}/api/playlists
+Content-Type: application/json
+### Get tracks for a playlist
+GET {{URL}}/api/playlisttracks/5
+Content-Type: application/json
+### Get available genres
+GET {{URL}}/api/genres
+Content-Type: application/json
+### Get tracks for a certain genre
+GET {{URL}}/api/tracks?genreId=5
+Content-Type: application/json
+### Add a new track to a playlist
+POST {{URL}}/api/track
+Content-Type: application/json
 
-DELETE http://localhost:8000/api/track?playlistid=1&trackid=3389
+{
+"playlistId": 5,
+"trackId": 10
+}
+
+### Remove a track from a playlist
+DELETE {{URL}}/api/track?playlistid=5&trackid=10
+Content-Type: application/json
+
 

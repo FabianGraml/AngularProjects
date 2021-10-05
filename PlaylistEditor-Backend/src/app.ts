@@ -106,7 +106,6 @@ app.delete('/api/track*', (req, res) => {
       });
 })
 
-
 //Genre stuff
 
 //Get all Genres
