@@ -1,21 +1,118 @@
-<h3>Playlist Editor</h3>
-<hr>
+<div class="row p-3 bg-primary text-white">
+  <div class="row ">
+    <div class="col-md-auto">
+      <table class="me-5">
+        <tr>
+          <td>
+            <h3 class="me-2">Playlist:</h3>
+          </td>
+          <td>
+            <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedPlaylist"
+              (ngModelChange)="getTracksOfPlaylist()">
+              <option *ngFor="let playlist of playlists" [value]="playlist.playlistId">
+                {{ playlist.playlistName }}
+              </option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-auto">
+      <table class="me-5">
+        <tr>
+          <td>
+            <h3 class="me-2">Number of Tracks: </h3>
+          </td>
+          <td>
+            <h3>{{numberOfTracks}}</h3>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-auto">
+      <table class="me-5">
+        <tr>
+          <td>
+            <h3 class="me-2">Total Playtime:</h3>
+          </td>
+          <td>
+            <h3>{{totalPlaytime}}</h3>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-auto">
+      <button class="btn btn-danger" (click)="isVisible=true">Add new Track</button>
+    </div>
+  </div>
+</div>
+<div class="row p-3 bg-primary text-white" *ngIf="isVisible">
+  <div class="row">
+    <div class="col-md-auto">
+      <table class="me-5">
+        <tr>
+          <td>
+            <h3 class="me-2">Genre:</h3>
+          </td>
+          <td>
+            <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedGenre"
+            (ngModelChange)="getTracksOfGenre()"
+              >
+              <option *ngFor="let genre of genres" [value]="genre.genreId">
+                {{ genre.genereName }}
+              </option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-auto">
+      <table class="me-5">
+        <tr>
+          <td>
+            <h3 class="me-2">Track: </h3>
+          </td>
+          <td>
+            <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedNewTrack"
+            >
+              <option *ngFor="let newTrack of tracksOfGenre" [value]="newTrack.trackId">
+                {{ newTrack.trackName }}
+              </option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-auto">
+      <button class="btn btn-success" (click)="addNewTrackToPlaylist()">Add</button>
+    </div>
+    <div class="col-md-auto">
+      <button class="btn btn-danger" (click)="isVisible=false">Cancel</button>
+    </div>
+  </div>
+</div>
+<div>
 
-<div class="p-3 mb-2 bg-primary text-white">
-
-  <label class="ml-5">Playlist</label>
-
-  <select
-  class="form-select"
-  aria-label="Default select example"
-  [(ngModel)]="selectedPlaylist"
-  (ngModelChange)="updatePlaylistTracks()"
->
-  <option *ngFor="let playlist of playlists" [value]="playlist.playlistId">
-    {{ playlist.playlistName }}
-  </option>
-</select>
-<p>Number of Tracks: {{numberOfTracks}}</p>
-<p>Total Playtime: {{totalPlaytime}}</p>
-
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Track#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Album</th>
+        <th scope="col">Genre</th>
+        <th scope="col">Length</th>
+        <th scope="col">🗑️</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of playlistTracks">
+        <th scope="row">{{item.trackId}}</th>
+        <td>{{item.trackName}}</td>
+        <td>{{item.albumId}}</td>
+        <td>{{item.genreId}}</td>
+        <td>{{showTime(item.milliSeconds)}}</td>
+        <td><button class="btn btn-danger">🗑️</button></td>
+      </tr>
+    </tbody>
+  </table>
 </div>

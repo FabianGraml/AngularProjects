@@ -86,11 +86,14 @@ app.post("/api/track", (req, res) => {
             playlistId: req.body.playlistId,
             trackId: req.body.trackId,
         };
+        console.log(newPlaylistTrack)
         playlistTracks.push(newPlaylistTrack);
         res
             .status(StatusCodes.CREATED)
             .send(newPlaylistTrack);
     }
+    
+    console.log(playlistTracks.find(x => x.trackId == 3451))
 });
 
 //Delete a Track from a Playlist
@@ -127,4 +130,8 @@ app.get('/api/tracks*', (req, res) => {
         res.status(StatusCodes.BAD_REQUEST).send(`Cannot work with the given query parameter`)
     }
 })
+
+app.get('/api/albums', (req, res) => {
+    res.status(StatusCodes.OK).send(albums)
+});
 

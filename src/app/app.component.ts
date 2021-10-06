@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import PlaylistTrack from 'PlaylistEditor-Backend/src/playlistTrack';
+import { formatDate } from '@angular/common';
+
 
 interface IPlaylist {
-  playlistId: number;
+  playlistId: Number;
   playlistName: string;
 }
 interface ITrack {
@@ -13,7 +15,16 @@ interface ITrack {
   mediaTypeId: Number;
   genreId: Number;
   composer: string;
-  milliSeconds: Number;
+  milliSeconds: number;
+}
+interface IGenre {
+  genreId: Number;
+  genereName: string;
+}
+interface IAlbum {
+  albumId: Number;
+  albumTitle: string;
+  artistId: Number;
 }
 
 @Component({
@@ -24,30 +35,87 @@ interface ITrack {
 export class AppComponent {
   title = 'angular-template';
 
-  selectedPlaylist: Number = 0;
+  selectedPlaylist: Number = 1;
   playlists: IPlaylist[] = [];
   playlisttracks: ITrack[] = [];
   numberOfTracks: Number = 0;
   totalPlaytime: Number = 0;
+  isVisible: boolean = false;
+  genres: IGenre[] = [];
+  selectedGenre: Number = 1;
+  playlistTracks: ITrack[] = [];
+  albums: IAlbum[] = [];
+  selectedNewTrack: Number = 1;
+  tracksOfGenre: ITrack[] = [];
 
-  constructor(private http: HttpClient) {  
+
+
+  constructor(private http: HttpClient) {
+
+  }
+  ngOnInit(): void {
+
     this.http
-    .get<IPlaylist[]>('http://localhost:8000/api/playlists')
-    .subscribe((result) => (this.playlists = result)); 
+      .get<IAlbum[]>('http://localhost:8000/api/albums')
+      .subscribe((result) => (this.albums = result));
+
+    this.http
+      .get<IGenre[]>('http://localhost:8000/api/genres')
+      .subscribe((result) => (this.genres = result));
+
+    this.http
+      .get<IPlaylist[]>('http://localhost:8000/api/playlists')
+      .subscribe((result) => (this.playlists = result));
+
+    this.getTracksOfGenre();
+
+    this.getTracksOfPlaylist();
+
+    //  this.playlistTracks.forEach(x => this.genres.forEach(y => y.genreId === x.genreId))
   }
 
-  playlistTracks: ITrack[] = []; 
-  updatePlaylistTracks() {
+  getTracksOfPlaylist() {
     this.http.get<ITrack[]>(`http://localhost:8000/api/playlisttracks/${this.selectedPlaylist}`)
-      .subscribe(result => this.playlistTracks = result);
-     
-    this.myLog('playlistTracks successfully updated:', this.playlistTracks); 
+      .subscribe(result => {
+        this.playlistTracks = result;
+        this.numberOfTracks = this.playlistTracks.length;
+      });
   }
 
+  getTracksOfGenre() {
   
-  myLog(title: string, content: any = undefined) {
-    console.log('-----------------------------------------'); 
-    console.log(`LOG: ${title}: ${content}`);  
+    this.selectedNewTrack = 1;
+    this.http.get<ITrack[]>(`http://localhost:8000/api/tracks?genreId=${this.selectedGenre}`)
+    .subscribe(result => {
+      this.tracksOfGenre = result;
+    });
+
   }
-  
+
+  addNewTrackToPlaylist() {
+    const body = { "playlistId": +this.selectedPlaylist, "trackId": +this.selectedNewTrack };
+    this.http.post(`http://localhost:8000/api/track`, body).subscribe(data => console.log(data))
+
+    console.log('Selected track to add: ' + this.selectedNewTrack);
+    console.log('Selected playlist to add: ' + this.selectedPlaylist);
+  }
+
+  checkIfVisible() {
+    if (this.isVisible) {
+      this.http.get<IGenre[]>(`http://localhost:8000/api/genres`)
+        .subscribe(result => this.genres = result);
+    }
+  }
+
+  myLog(title: string, content: any = undefined) {
+    console.log('-----------------------------------------');
+    console.log(`LOG: ${title}: ${content}`);
+  }
+  showTime(milliSeconds: number): string {
+    const newDD = milliSeconds
+    const date = new Date(milliSeconds);
+    return formatDate(date, 'mm:ss', 'en-US')
+  }
+
+
 }
