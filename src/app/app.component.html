@@ -36,7 +36,7 @@
             <h3 class="me-2">Total Playtime:</h3>
           </td>
           <td>
-            <h3>{{totalPlaytime}}</h3>
+            <h3>{{showTimeWithHour(totalPlaytime)}}</h3>
           </td>
         </tr>
       </table>
@@ -111,7 +111,7 @@
         <td>{{item.albumId}}</td>
         <td>{{item.genreId}}</td>
         <td>{{showTime(item.milliSeconds)}}</td>
-        <td><button class="btn btn-danger">🗑️</button></td>
+        <td><button class="btn btn-danger" (click)="delete(item.trackId)">🗑️</button></td>
       </tr>
     </tbody>
   </table>

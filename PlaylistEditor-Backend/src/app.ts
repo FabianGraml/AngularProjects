@@ -7,6 +7,7 @@ import Album from './album';
 import Genre from './genre';
 import PlaylistTrack from './playlistTrack';
 import Track from './track';
+import TrackDTO from './trackDTO'
 
 require('dotenv').config();
 
@@ -44,10 +45,7 @@ fs.readFile('.\\csv\\playlist-track.csv', 'utf-8', (err, res) => {
 fs.readFile('.\\csv\\track.csv', 'utf-8', (err, res) => {
     res.split('\n').slice(1).map((x: string) => tracks.push(new Track(x)))
 })
-
-
 // Weird stuff
-
 app.listen(process.env.PORT, () => {
     console.log(`Server listening on port ${process.env.PORT}`);
 });
@@ -64,10 +62,15 @@ app.get('/api/playlists', (req, res) => {
 app.get('/api/playlisttracks/:id', (req, res) => {
     const playListId = parseInt(req.params.id);
 
+
     if (playListId) {
         const playlist = playlists.find(x => x.playlistId === playListId)
         if (playlist) {
-            res.status(StatusCodes.OK).send(playlistTracks.filter(x => x.playlistId === playListId).map(x => tracks.find(y => y.trackId === x.trackId)))
+
+            tracks.sort((first, second) => first.trackName.localeCompare(second.trackName));
+
+            res.status(StatusCodes.OK).send(playlistTracks.filter(x => x.playlistId === playListId)
+                .map(x => tracks.find(y => y.trackId === x.trackId)).sort((first: any, second: any) => first.trackName.localeCompare(second.trackName)))
         } else {
             res.status(StatusCodes.NOT_FOUND).send(`Playlist with id ${playListId} was not found`)
         }
@@ -82,18 +85,25 @@ app.post("/api/track", (req, res) => {
         res.status(StatusCodes.BAD_REQUEST).send("Mandatory fields missing");
     }
     else {
-        const newPlaylistTrack: PlaylistTrack = {
-            playlistId: req.body.playlistId,
-            trackId: req.body.trackId,
-        };
-        console.log(newPlaylistTrack)
-        playlistTracks.push(newPlaylistTrack);
-        res
-            .status(StatusCodes.CREATED)
-            .send(newPlaylistTrack);
+
+        let track = playlistTracks.find(x => x.trackId === req.body.trackId && x.playlistId === req.body.playlistId)
+        if (track) {
+            console.log('hoids maul')
+            res.status(StatusCodes.FORBIDDEN).send('Song is already in this list')
+        } else {
+
+            const newPlaylistTrack: PlaylistTrack = {
+                playlistId: req.body.playlistId,
+                trackId: req.body.trackId,
+            };
+            console.log(newPlaylistTrack)
+            playlistTracks.push(newPlaylistTrack);
+            res
+                .status(StatusCodes.CREATED)
+                .send(newPlaylistTrack);
+        }
     }
-    
-    console.log(playlistTracks.find(x => x.trackId == 3451))
+
 });
 
 //Delete a Track from a Playlist
@@ -102,11 +112,11 @@ app.delete('/api/track*', (req, res) => {
     const playListId = Number(req.query.playlistid);
     const trackId = Number(req.query.trackid);
 
-    playlistTracks.forEach( (item, index) => {
-        if(item.playlistId === playListId && item.trackId === trackId){
-            playlistTracks.splice(index,1);
-        } 
-      });
+    playlistTracks.forEach((item, index) => {
+        if (item.playlistId === playListId && item.trackId === trackId) {
+            playlistTracks.splice(index, 1);
+        }
+    });
 })
 
 //Genre stuff
