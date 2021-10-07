@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import PlaylistTrack from 'PlaylistEditor-Backend/src/playlistTrack';
 import { formatDate } from '@angular/common';
+import Track from './track'
 
 
 interface IPlaylist {
@@ -37,16 +38,17 @@ export class AppComponent {
 
   selectedPlaylist: Number = 1;
   playlists: IPlaylist[] = [];
-  playlisttracks: ITrack[] = [];
+  playlistFromServer: ITrack[] = [];
   numberOfTracks: number = 0;
   totalPlaytime: number = 0;
   isVisible: boolean = false;
   genres: IGenre[] = [];
-  selectedGenre: Number = 1;
-  playlistTracks: ITrack[] = [];
+  selectedGenre: Number = 0;
   albums: IAlbum[] = [];
-  selectedNewTrack: Number = 1;
+  selectedNewTrack: Number = 0;
   tracksOfGenre: ITrack[] = [];
+
+  playlist: Track[] = [];
 
 
 
@@ -68,7 +70,7 @@ export class AppComponent {
       .subscribe((result) => (this.playlists = result));
 
     this.getTracksOfGenre();
-    
+
     this.getTracksOfPlaylist();
 
     //  this.playlistTracks.forEach(x => this.genres.forEach(y => y.genreId === x.genreId))
@@ -76,17 +78,30 @@ export class AppComponent {
 
   getTracksOfPlaylist() {
     this.totalPlaytime = 0;
-    this.playlistTracks = [];
+    this.playlistFromServer = [];
+    this.playlist = [];
 
     this.http.get<ITrack[]>(`http://localhost:8000/api/playlisttracks/${this.selectedPlaylist}`)
       .subscribe(result => {
-        this.playlistTracks = result;
+        this.playlistFromServer = result;
 
-        for (let i = 0; i < this.playlistTracks.length; i++) {
-          this.totalPlaytime = this.playlistTracks[i].milliSeconds + this.totalPlaytime
+        for (let i = 0; i < this.playlistFromServer.length; i++) {
+
+          var newTrack = new Track(
+            this.playlistFromServer[i].trackId,
+            this.playlistFromServer[i].trackName,
+            this.playlistFromServer[i].albumId,
+            this.albums.find(x => x.albumId === this.playlistFromServer[i].albumId)?.albumTitle as string,
+            this.playlistFromServer[i].genreId,
+            this.genres.find(x => x.genreId === this.playlistFromServer[i].genreId)?.genereName as string,
+            this.playlistFromServer[i].milliSeconds
+          );
+          this.playlist.push(newTrack)
         }
-        this.numberOfTracks = this.playlistTracks.length;
-
+        for (let i = 0; i < this.playlist.length; i++) {
+          this.totalPlaytime = this.playlist[i].milliSeconds + this.totalPlaytime;
+        }
+        this.numberOfTracks = this.playlist.length;
       });
   }
 
@@ -104,14 +119,17 @@ export class AppComponent {
     this.http.post(`http://localhost:8000/api/track`, body).subscribe(data => {
       console.log(data)
       this.getTracksOfPlaylist();
+      this.isVisible = false;
+      this.selectedGenre = 0;
+      this.selectedNewTrack = 0;
+
     },
-    error => {
-      alert(error.error)
-      // Handle error
-      // Use if conditions to check error code, this depends on your api, how it sends error messages
-  }
+      error => {
+        alert(error.error)
+        // Handle error
+        // Use if conditions to check error code, this depends on your api, how it sends error messages
+      }
     )
-    this.isVisible = false;
   }
 
   checkIfVisible() {
@@ -134,11 +152,31 @@ export class AppComponent {
     return formatDate(date, 'd:hh:mm:ss', 'en-US')
   }
   delete(trackID: Number) {
-     this.playlistTracks.forEach(x => x.trackId === trackID)
-     this.playlistTracks.slice(0);
-     this.playlistTracks.forEach((element,index)=>{
-      if(element.trackId==trackID) this.playlistTracks.splice(index,1);
-   });
+    this.playlist.forEach(x => x.trackId === trackID)
+    this.playlist.slice(0);
+    this.playlist.forEach((element, index) => {
+      if (element.trackId == trackID){
+        this.playlist.splice(index, 1);
+        const millis = this.playlist.find(x => x.trackId);
+        if(millis !== undefined){
+          this.totalPlaytime - millis.milliSeconds
+        }
+        
+      } 
+    });
+    this.totalPlaytime =0;
+    for (let i = 0; i < this.playlist.length; i++) {
+      this.totalPlaytime = this.playlist[i].milliSeconds + this.totalPlaytime;
+    }
+    this.numberOfTracks = this.playlist.length;
     this.http.delete(`http://localhost:8000/api/track?playlistid=${this.selectedPlaylist}&trackid=${trackID}`).subscribe(x => console.log(x))
+  }
+  
+  isDisabled(): boolean {
+    if (this.selectedGenre > 0) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

@@ -22,6 +22,7 @@ let albums: Album[] = [];
 let genres: Genre[] = [];
 let playlistTracks: PlaylistTrack[] = [];
 let tracks: Track[] = [];
+let playlist: TrackDTO[] = [];
 
 
 //CSV Reading stuff
@@ -56,6 +57,28 @@ app.listen(process.env.PORT, () => {
 //Get all Playlists
 app.get('/api/playlists', (req, res) => {
     res.json(playlists);
+});
+
+app.get('/api/test', (req, res) => {
+
+    console.log("yeet it")
+    for (let i = 0; i < tracks.length; i++) {
+
+        var dto = new TrackDTO(
+            tracks[i].trackId,
+            tracks[i].trackName,
+            tracks[i].albumId,
+            albums.find(x => x.albumId === tracks[i].albumId)?.albumTitle as string,
+            tracks[i].genreId,
+            genres.find(x => x.genreId === tracks[i].genreId)?.genereName as string,
+            tracks[i].milliSeconds
+        );
+        playlist.push(dto)
+
+
+    }
+
+
 });
 
 //Get all Tracks of a Playlist

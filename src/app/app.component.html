@@ -7,7 +7,7 @@
             <h3 class="me-2">Playlist:</h3>
           </td>
           <td>
-            <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedPlaylist"
+            <select class="form-select selects" aria-label="Default select example" [(ngModel)]="selectedPlaylist"
               (ngModelChange)="getTracksOfPlaylist()">
               <option *ngFor="let playlist of playlists" [value]="playlist.playlistId">
                 {{ playlist.playlistName }}
@@ -55,7 +55,7 @@
             <h3 class="me-2">Genre:</h3>
           </td>
           <td>
-            <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedGenre"
+            <select class="form-select selects" aria-label="Default select example" [(ngModel)]="selectedGenre"
             (ngModelChange)="getTracksOfGenre()"
               >
               <option *ngFor="let genre of genres" [value]="genre.genreId">
@@ -73,10 +73,10 @@
             <h3 class="me-2">Track: </h3>
           </td>
           <td>
-            <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedNewTrack"
+            <select class="form-select selects" aria-label="Default select example" [disabled]="isDisabled()" [(ngModel)]="selectedNewTrack"
             >
               <option *ngFor="let newTrack of tracksOfGenre" [value]="newTrack.trackId">
-                {{ newTrack.trackName }}
+                {{ newTrack.trackName }} by {{newTrack.composer}}
               </option>
             </select>
           </td>
@@ -84,7 +84,7 @@
       </table>
     </div>
     <div class="col-md-auto">
-      <button class="btn btn-success" (click)="addNewTrackToPlaylist()">Add</button>
+      <button class="btn btn-success" (click)="addNewTrackToPlaylist()" [disabled]="selectedNewTrack ? 0 : true">Add</button>
     </div>
     <div class="col-md-auto">
       <button class="btn btn-danger" (click)="isVisible=false">Cancel</button>
@@ -105,11 +105,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of playlistTracks">
+      <tr *ngFor="let item of playlist">
         <th scope="row">{{item.trackId}}</th>
         <td>{{item.trackName}}</td>
-        <td>{{item.albumId}}</td>
-        <td>{{item.genreId}}</td>
+        <td>{{item.albumName}}</td>
+        <td>{{item.genre}}</td>
         <td>{{showTime(item.milliSeconds)}}</td>
         <td><button class="btn btn-danger" (click)="delete(item.trackId)">🗑️</button></td>
       </tr>
