@@ -46,7 +46,6 @@ fs.readFile('.\\csv\\playlist-track.csv', 'utf-8', (err, res) => {
 fs.readFile('.\\csv\\track.csv', 'utf-8', (err, res) => {
     res.split('\n').slice(1).map((x: string) => tracks.push(new Track(x)))
 })
-// Weird stuff
 app.listen(process.env.PORT, () => {
     console.log(`Server listening on port ${process.env.PORT}`);
 });
@@ -59,27 +58,6 @@ app.get('/api/playlists', (req, res) => {
     res.json(playlists);
 });
 
-app.get('/api/test', (req, res) => {
-
-    console.log("yeet it")
-    for (let i = 0; i < tracks.length; i++) {
-
-        var dto = new TrackDTO(
-            tracks[i].trackId,
-            tracks[i].trackName,
-            tracks[i].albumId,
-            albums.find(x => x.albumId === tracks[i].albumId)?.albumTitle as string,
-            tracks[i].genreId,
-            genres.find(x => x.genreId === tracks[i].genreId)?.genereName as string,
-            tracks[i].milliSeconds
-        );
-        playlist.push(dto)
-
-
-    }
-
-
-});
 
 //Get all Tracks of a Playlist
 app.get('/api/playlisttracks/:id', (req, res) => {
@@ -111,7 +89,6 @@ app.post("/api/track", (req, res) => {
 
         let track = playlistTracks.find(x => x.trackId === req.body.trackId && x.playlistId === req.body.playlistId)
         if (track) {
-            console.log('hoids maul')
             res.status(StatusCodes.FORBIDDEN).send('Song is already in this list')
         } else {
 
