@@ -125,19 +125,9 @@ export class AppComponent {
     },
       error => {
         alert(error.error)
-        // Handle error
-        // Use if conditions to check error code, this depends on your api, how it sends error messages
       }
     )
   }
-
-  checkIfVisible() {
-    // if (this.isVisible) {
-    //   this.http.get<IGenre[]>(`http://localhost:8000/api/genres`)
-    //     .subscribe(result => this.genres = result);
-    // }
-  }
-
   myLog(title: string, content: any = undefined) {
     console.log('-----------------------------------------');
     console.log(`LOG: ${title}: ${content}`);
@@ -148,11 +138,6 @@ export class AppComponent {
   }
   showTimeWithHour(milliSeconds: number): string {
     return Math.floor(milliSeconds/(1000*60*60)) + ":" + Math.floor(milliSeconds/(1000*60))%60 + ":" + Math.floor(milliSeconds/1000)%60;
-
-    
-   
-
-
   }
   delete(trackID: Number) {
     this.playlist.forEach(x => x.trackId === trackID)
