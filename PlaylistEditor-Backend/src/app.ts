@@ -13,20 +13,6 @@ app.use(express.json());
 app.locals = init();
 
 
-<<<<<<< HEAD
-=======
-fs.readFile('.\\csv\\genre.csv', 'utf-8', (err, res) => {
-    res.split('\n').slice(1).map((x: string) => genres.push(new Genre(x)))
-})
-
-fs.readFile('.\\csv\\playlist-track.csv', 'utf-8', (err, res) => {
-    res.split('\n').slice(1).map((x: string) => playlistTracks.push(new PlaylistTrack(x)))
-})
-
-fs.readFile('.\\csv\\track.csv', 'utf-8', (err, res) => {
-    res.split('\n').slice(1).map((x: string) => tracks.push(new Track(x)))
-})
->>>>>>> 0b4730ada1b4dc51049ff75946798196763884b9
 app.listen(process.env.PORT, () => {
     console.log(`Server listening on port ${process.env.PORT}`);
 });
@@ -34,47 +20,14 @@ app.listen(process.env.PORT, () => {
 app.get('/api/playlists', (req, res) => {
     res.send((<Datastore>req.app.locals).playlists.find())
 });
-<<<<<<< HEAD
-=======
-
-
-//Get all Tracks of a Playlist
-app.get('/api/playlisttracks/:id', (req, res) => {
-    const playListId = parseInt(req.params.id);
-
-
-    if (playListId) {
-        const playlist = playlists.find(x => x.playlistId === playListId)
-        if (playlist) {
-
-            tracks.sort((first, second) => first.trackName.localeCompare(second.trackName));
-
-            res.status(StatusCodes.OK).send(playlistTracks.filter(x => x.playlistId === playListId)
-                .map(x => tracks.find(y => y.trackId === x.trackId)).sort((first: any, second: any) => first.trackName.localeCompare(second.trackName)))
-        } else {
-            res.status(StatusCodes.NOT_FOUND).send(`Playlist with id ${playListId} was not found`)
-        }
-    } else {
-        res.status(StatusCodes.BAD_REQUEST).send('Something went completely wrong!')
-    }
-});
-
-//Add a Track to a Playlist
->>>>>>> 0b4730ada1b4dc51049ff75946798196763884b9
 app.post("/api/track", (req, res) => {
     if (!req.body.playlistId || !req.body.trackId) {
         res.status(StatusCodes.BAD_REQUEST).send("Mandatory fields missing");
     }
     else {
-<<<<<<< HEAD
         const store = <Datastore>req.app.locals;
         let track = store.playlistTracks.find({ 'playlistId': req.body.playlistId, 'trackId': req.body.trackId })
         if (track.length != 0) {
-=======
-
-        let track = playlistTracks.find(x => x.trackId === req.body.trackId && x.playlistId === req.body.playlistId)
-        if (track) {
->>>>>>> 0b4730ada1b4dc51049ff75946798196763884b9
             res.status(StatusCodes.FORBIDDEN).send('Song is already in this list')
         } else {
             const newPlaylistTrack: PlaylistTrack = {
