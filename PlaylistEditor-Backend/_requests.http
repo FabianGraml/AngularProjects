@@ -4,7 +4,7 @@
 GET {{URL}}/api/playlists
 Content-Type: application/json
 ### Get tracks for a playlist
-GET {{URL}}/api/playlisttracks/5
+GET {{URL}}/api/playlisttracks/18
 Content-Type: application/json
 ### Get available genres
 GET {{URL}}/api/genres
@@ -17,12 +17,12 @@ POST {{URL}}/api/track
 Content-Type: application/json
 
 {
-"playlistId": 5,
-"trackId": 10
+"playlistId": 2,
+"trackId": 2
 }
 
 ### Remove a track from a playlist
-DELETE {{URL}}/api/track?playlistid=5&trackid=10
+DELETE {{URL}}/api/track?playlistid=17&trackid=10
 Content-Type: application/json
 
 

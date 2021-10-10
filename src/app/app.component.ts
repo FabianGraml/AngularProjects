@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import PlaylistTrack from 'PlaylistEditor-Backend/src/playlistTrack';
 import { formatDate } from '@angular/common';
 import Track from './track'
 
@@ -148,8 +147,12 @@ export class AppComponent {
     return formatDate(date, 'mm:ss', 'en-US')
   }
   showTimeWithHour(milliSeconds: number): string {
-    const date = new Date(milliSeconds);
-    return formatDate(date, 'd:hh:mm:ss', 'en-US')
+    return Math.floor(milliSeconds/(1000*60*60)) + ":" + Math.floor(milliSeconds/(1000*60))%60 + ":" + Math.floor(milliSeconds/1000)%60;
+
+    
+   
+
+
   }
   delete(trackID: Number) {
     this.playlist.forEach(x => x.trackId === trackID)
