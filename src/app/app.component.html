@@ -59,7 +59,7 @@
             (ngModelChange)="getTracksOfGenre()"
               >
               <option *ngFor="let genre of genres" [value]="genre.genreId">
-                {{ genre.genereName }}
+                {{ genre.genreName }}
               </option>
             </select>
           </td>
@@ -76,7 +76,7 @@
             <select class="form-select selects" aria-label="Default select example" [disabled]="isDisabled()" [(ngModel)]="selectedNewTrack"
             >
               <option *ngFor="let newTrack of tracksOfGenre" [value]="newTrack.trackId">
-                {{ newTrack.trackName }} by {{newTrack.composer}}
+                {{ newTrack.trackName }}
               </option>
             </select>
           </td>

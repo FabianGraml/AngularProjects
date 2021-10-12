@@ -5,26 +5,25 @@ import Track from './track'
 
 
 interface IPlaylist {
-  playlistId: Number;
+  playlistId: number;
   playlistName: string;
 }
 interface ITrack {
-  trackId: Number;
+  trackId: number;
   trackName: string;
-  albumId: Number;
-  mediaTypeId: Number;
-  genreId: Number;
-  composer: string;
-  milliSeconds: number;
+  albumId: number;
+  mediaTypeId: number;
+  genreId: number;
+  milliseconds: number;
 }
 interface IGenre {
-  genreId: Number;
-  genereName: string;
+  genreId: number;
+  genreName: string;
 }
 interface IAlbum {
-  albumId: Number;
+  albumId: number;
   albumTitle: string;
-  artistId: Number;
+  artistId: number;
 }
 
 @Component({
@@ -35,18 +34,17 @@ interface IAlbum {
 export class AppComponent {
   title = 'angular-template';
 
-  selectedPlaylist: Number = 1;
+  selectedPlaylist: number = 1;
   playlists: IPlaylist[] = [];
   playlistFromServer: ITrack[] = [];
   numberOfTracks: number = 0;
   totalPlaytime: number = 0;
   isVisible: boolean = false;
   genres: IGenre[] = [];
-  selectedGenre: Number = 0;
+  selectedGenre: number = 0;
   albums: IAlbum[] = [];
-  selectedNewTrack: Number = 0;
+  selectedNewTrack: number = 0;
   tracksOfGenre: ITrack[] = [];
-
   playlist: Track[] = [];
 
 
@@ -63,6 +61,7 @@ export class AppComponent {
     this.http
       .get<IGenre[]>('http://localhost:8000/api/genres')
       .subscribe((result) => (this.genres = result));
+
 
     this.http
       .get<IPlaylist[]>('http://localhost:8000/api/playlists')
@@ -92,8 +91,8 @@ export class AppComponent {
             this.playlistFromServer[i].albumId,
             this.albums.find(x => x.albumId === this.playlistFromServer[i].albumId)?.albumTitle as string,
             this.playlistFromServer[i].genreId,
-            this.genres.find(x => x.genreId === this.playlistFromServer[i].genreId)?.genereName as string,
-            this.playlistFromServer[i].milliSeconds
+            this.genres.find(x => x.genreId === this.playlistFromServer[i].genreId)?.genreName as string,
+            this.playlistFromServer[i].milliseconds
           );
           this.playlist.push(newTrack)
         }
