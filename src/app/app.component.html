@@ -1,15 +1,35 @@
-<h3>Tournament Planner</h3>
+<mat-toolbar color="primary">
+ <span>Tournament Planner</span>
+ <span class="example-spacer"></span>
+ <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+  <button class="btn btn-danger" (click)="genereateTournament()">Genereate new Tournament</button>
+ <button class="btn btn-success centerButton" (click)="nextRound()" [disabled]="isDisabled()">Next Round</button>
+</mat-button-toggle-group>
 
 
-<p>Round: {{roundNumber}}</p>
+
+</mat-toolbar>
+<div>
+  <h3>Round: {{roundNumber}}</h3>
+
+</div>
+  <div name="fontStyle" aria-label="Font Style" *ngFor="let item of matches">
+    <mat-button-toggle (click)="setMatchWinner(item.id, item.person1.id, item.round)">{{item.person1.firstname}} {{item.person1.lastname}}</mat-button-toggle>
+    <mat-button-toggle (click)="setMatchWinner(item.id, item.person2.id, item.round)">{{item.person2.firstname}} {{item.person2.lastname}}</mat-button-toggle>
+  </div>
+
+
+<!-- <h3>Tournament Planner</h3>
+
+
 <div *ngFor="let item of matches">
   
   <table>
     <tr>
-      <td><button class="btn btn-warning" (click)="setMatchWinner(item.id, item.person1.id)">{{item.person1.lastname}}</button></td>
-      <td><button class="btn btn-warning" (click)="setMatchWinner(item.id, item.person2.id)">{{item.person2.lastname}}</button></td>
+      <td><button  [ngClass]="statusClass" (click)="setMatchWinner(item.id, item.person1.id)">{{item.person1.lastname}}</button></td>
+      <td><button  (click)="setMatchWinner(item.id, item.person2.id)">{{item.person2.lastname}}</button></td>
     </tr>
   </table>
 </div>
 
-<button (click)="nextRound()">Create Next Round</button>
+<button (click)="nextRound()">Create Next Round</button> -->
