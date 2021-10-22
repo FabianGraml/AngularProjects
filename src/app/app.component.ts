@@ -29,7 +29,10 @@ export class AppComponent {
   matches: IMatch[] = [];
 
   roundNumber: number = 0;
+  roundNames: string [] = ['', 'Round of 32', 'Round of 16', 'Quarterfinals', 'Semifinals', 'Final']
   statusClass: string = 'btn btn-outline-success';
+
+  winner: IPerson = {} as IPerson;
 
   constructor(private http: HttpClient) {
 
@@ -40,6 +43,7 @@ export class AppComponent {
   }
   genereateTournament() {
     this.matches = [];
+    console.log("Winner:"+this.winner.id)
     this.http.delete<IMatch[]>('http://localhost:5000/api/resetMatchPlan').subscribe((x => {
       this.http.get<IMatch[]>('http://localhost:5000/api/genereateRound').subscribe((result) => { 
         this.matches = result;
@@ -73,8 +77,7 @@ export class AppComponent {
     })
 
     if (round === 5) {
-      const person = this.persons.find(x => x.id == matchWinnerId);
-      alert("Winner is: " + person?.firstname + ' ' + person?.lastname)
+      this.winner = this.persons.find(x => x.id == matchWinnerId) as IPerson;
     }
   }
   isDisabled(): boolean{
@@ -82,6 +85,15 @@ export class AppComponent {
       return true;
     }else{
       return false
+    }
+  }
+  isWinner(playerNumber: number, matchId: number) : string{
+    var match = this.matches.find(x => x.id == matchId);
+    if(match?.winner.id == playerNumber){
+      return 'primary'
+    }
+    else{
+      return 'warn'
     }
   }
 

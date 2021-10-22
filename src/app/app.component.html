@@ -1,35 +1,49 @@
 <mat-toolbar color="primary">
- <span>Tournament Planner</span>
- <span class="example-spacer"></span>
- <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-  <button class="btn btn-danger" (click)="genereateTournament()">Genereate new Tournament</button>
- <button class="btn btn-success centerButton" (click)="nextRound()" [disabled]="isDisabled()">Next Round</button>
-</mat-button-toggle-group>
+  <mat-toolbar-row>
+    <span>Tournament Planner</span>
+    <span class="example-spacer"></span>
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+      <button class="btn btn-danger" (click)="genereateTournament()">New Tournament</button>
+    </mat-button-toggle-group>
 
+  </mat-toolbar-row>
+  <mat-toolbar-row [hidden]="roundNumber <= 0">
+    <span>Round: {{roundNames[roundNumber]}}</span>
+    <span class="example-spacer"></span>
+    <button class="btn btn-success" (click)="nextRound()" [disabled]="isDisabled()">Next Round</button>
 
-
+  </mat-toolbar-row>
 </mat-toolbar>
-<div>
-  <h3>Round: {{roundNumber}}</h3>
 
+
+
+
+<div id="cardsDiv" [hidden]="winner.id != undefined" >
+  <mat-card *ngFor="let item of matches" class="cardDesign">
+
+
+    <mat-card-title class="cardTitleBox">
+      <p [ngStyle]="{'background-color':item.person1.gender === 'Male' ? '#0088FF' : '#FF69B4' }">{{
+        item.person1.firstname }} {{item.person1.lastname}}</p>
+      vs
+      <p [ngStyle]="{'background-color':item.person2.gender === 'Male' ? '#0088FF' : '#FF69B4' }">{{
+        item.person2.firstname }} {{item.person2.lastname}}</p>
+    </mat-card-title>
+    <mat-card-actions class="btnCards">
+      <mat-button-toggle (click)="setMatchWinner(item.id, item.person1.id, item.round)">{{item.person1.firstname}}
+        {{item.person1.lastname}}</mat-button-toggle>
+      <mat-button-toggle (click)="setMatchWinner(item.id, item.person2.id, item.round)">{{item.person2.firstname}}
+        {{item.person2.lastname}}</mat-button-toggle>
+    </mat-card-actions>
+
+  </mat-card>
+ 
 </div>
-  <div name="fontStyle" aria-label="Font Style" *ngFor="let item of matches">
-    <mat-button-toggle (click)="setMatchWinner(item.id, item.person1.id, item.round)">{{item.person1.firstname}} {{item.person1.lastname}}</mat-button-toggle>
-    <mat-button-toggle (click)="setMatchWinner(item.id, item.person2.id, item.round)">{{item.person2.firstname}} {{item.person2.lastname}}</mat-button-toggle>
-  </div>
-
-
-<!-- <h3>Tournament Planner</h3>
-
-
-<div *ngFor="let item of matches">
-  
-  <table>
-    <tr>
-      <td><button  [ngClass]="statusClass" (click)="setMatchWinner(item.id, item.person1.id)">{{item.person1.lastname}}</button></td>
-      <td><button  (click)="setMatchWinner(item.id, item.person2.id)">{{item.person2.lastname}}</button></td>
-    </tr>
-  </table>
+<div [hidden]="winner.id == undefined"  id="cardsDiv" >
+  <mat-card class="cardDesign">
+    <mat-card-title  class="cardTitleBox">🏆👑 Winner 👑🏆</mat-card-title>
+    <br>
+    <mat-card-title  class="cardTitleBox">{{winner.firstname}} {{winner.lastname}}</mat-card-title>
+  </mat-card>
 </div>
 
-<button (click)="nextRound()">Create Next Round</button> -->

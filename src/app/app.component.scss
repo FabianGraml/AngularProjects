@@ -6,3 +6,39 @@
     left: 50%;
     margin-top: 5px;
   }
+  .card{
+    width: 24.4%;
+    margin: 0.3%;
+    background-color: white;
+  display: inline-block;
+}
+.cardTitleBox{
+    min-height: 100px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: normal;
+}
+.cardButtonArea{
+    text-align: center;
+}
+.cardButton{
+    width: 40%;
+}
+body {
+    background-color: green;
+  }
+#cardsDiv{
+    display: flex;
+    flex-wrap: wrap; /* Optional. only if you want the items to wrap */
+    justify-content: center; /* For horizontal alignment */
+    align-items: center; /* For vertical alignment */
+      margin-top: 1%;
+      
+}
+.btnCards{
+  text-align: center;
+}
+.cardDesign{
+  margin: 10px;
+  width: 300px;
+}
