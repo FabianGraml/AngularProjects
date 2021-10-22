@@ -43,7 +43,7 @@ export class AppComponent {
   }
   genereateTournament() {
     this.matches = [];
-    console.log("Winner:"+this.winner.id)
+    this.winner = {} as IPerson;
     this.http.delete<IMatch[]>('http://localhost:5000/api/resetMatchPlan').subscribe((x => {
       this.http.get<IMatch[]>('http://localhost:5000/api/genereateRound').subscribe((result) => { 
         this.matches = result;
