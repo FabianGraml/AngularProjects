@@ -40,6 +40,17 @@ export class AppComponent {
 
   ngOnInit() {
     this.http.get<IPerson[]>('http://localhost:5000/api/persons').subscribe((result) => this.persons = result)
+    this.http.get<IMatch[]>('http://localhost:5000/api/getUnplayedMatch').subscribe((result) => {
+     this.matches = result;
+
+     if(this.matches.length === 0){
+      this.genereateTournament();
+    }
+    this.roundNumber = this.matches[0].round;
+
+    })
+ 
+
   }
   genereateTournament() {
     this.matches = [];
