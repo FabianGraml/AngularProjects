@@ -3,11 +3,17 @@
     <span>Tournament Planner</span>
     <span class="example-spacer"></span>
     <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-      <button class="btn btn-danger" (click)="genereateTournament()">New Tournament</button>
+      <button [hidden]="container1Visible==true" class="btn btn-danger" (click)="genereateTournament();">New
+        Tournament</button>
+
+      <button class="btn btn-danger" (click)="container1Visible=true; container2Visible=false">Add Person</button>
+      <button [hidden]="container2Visible==true" class="btn btn-danger" (click)="restore()">Back</button>
+
+
     </mat-button-toggle-group>
 
   </mat-toolbar-row>
-  <mat-toolbar-row [hidden]="matches.length == 0">
+  <mat-toolbar-row [hidden]="matches.length == 0 || container1Visible==true">
     <span>Round: {{roundNames[roundNumber]}}</span>
     <span class="example-spacer"></span>
     <button class="btn btn-success" (click)="nextRound()" [disabled]="isDisabled()">Next Round</button>
@@ -15,37 +21,60 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
+<div class="container1" [hidden]="!container1Visible">
+ <mat-card class="personInputDesign">
+  <mat-card-title>Add Club Member</mat-card-title>
+  <form>
+    <label for="fname">First name:</label><br>
+    <input id="fname" name="fname" [(ngModel)]="firstnameInput" type="text" class="form-control" aria-label="Sizing example input"
+    aria-describedby="inputGroup-sizing-default" />  
+    <label for="lname">Last name:</label><br>
+    <input id="lname" name="lname" [(ngModel)]="lastnameInput" type="text" class="form-control" aria-label="Sizing example input"
+    aria-describedby="inputGroup-sizing-default" />  
+    <label for="gender">Gender:</label><br>
 
+  <select name="gender" id="gender" class="form-select" aria-label="Default select example" [(ngModel)]="selectedGender">
+    <option [value]="1">Male</option>
+    <option [value]="2">Female</option>
+  </select>
 
+</form>
+<button (click)="addPerson()" class="btn btn-primary addPersonButton">Add Person</button>
 
-<div id="cardsDiv" [hidden]="winner.id != undefined" >
-  <mat-card *ngFor="let item of matches" class="cardDesign">
-
-
-    <mat-card-title class="cardTitleBox">
-      <p [ngStyle]="{'background-color':item.person1.gender === 'Male' ? '#0088FF' : '#FF69B4' }">{{
-        item.person1.firstname }} {{item.person1.lastname}} </p>
-      vs
-      <p [ngStyle]="{'background-color':item.person2.gender === 'Male' ? '#0088FF' : '#FF69B4' }">{{
-        item.person2.firstname }} {{item.person2.lastname}}</p>
-    </mat-card-title>
-    <mat-card-actions class="btnCards">
-      <mat-button-toggle-group>
-      <mat-button-toggle (click)="setMatchWinner(item.id, item.person1.id, item.round)">{{item.person1.firstname}}
-        {{item.person1.lastname}}</mat-button-toggle>
-      <mat-button-toggle (click)="setMatchWinner(item.id, item.person2.id, item.round)">{{item.person2.firstname}}
-        {{item.person2.lastname}}</mat-button-toggle>
-      </mat-button-toggle-group>
-    </mat-card-actions>
-
-  </mat-card>
+</mat-card>
+ 
  
 </div>
-<div [hidden]="winner.id == undefined"  id="cardsDiv" >
-  <mat-card class="cardDesign">
-    <mat-card-title  class="cardTitleBox">🏆👑 Winner 👑🏆</mat-card-title>
-    <br>
-    <mat-card-title  class="cardTitleBox">{{winner.firstname}} {{winner.lastname}}</mat-card-title>
-  </mat-card>
-</div>
 
+<div class="container2">
+  <div id="cardsDiv" [hidden]="winner.id != undefined || !container2Visible">
+    <mat-card *ngFor="let item of matches" class="cardDesign">
+
+
+      <mat-card-title class="cardTitleBox">
+        <p [ngStyle]="{'background-color':item.person1.gender === 'Male' ? '#0088FF' : '#FF69B4' }">{{
+          item.person1.firstname }} {{item.person1.lastname}} </p>
+        vs
+        <p [ngStyle]="{'background-color':item.person2.gender === 'Male' ? '#0088FF' : '#FF69B4' }">{{
+          item.person2.firstname }} {{item.person2.lastname}}</p>
+      </mat-card-title>
+      <mat-card-actions class="btnCards">
+        <mat-button-toggle-group>
+          <mat-button-toggle (click)="setMatchWinner(item.id, item.person1.id, item.round)">{{item.person1.firstname}}
+            {{item.person1.lastname}}</mat-button-toggle>
+          <mat-button-toggle (click)="setMatchWinner(item.id, item.person2.id, item.round)">{{item.person2.firstname}}
+            {{item.person2.lastname}}</mat-button-toggle>
+        </mat-button-toggle-group>
+      </mat-card-actions>
+
+    </mat-card>
+
+  </div>
+  <div [hidden]="winner.id == undefined" id="cardsDiv">
+    <mat-card class="cardDesign">
+      <mat-card-title class="cardTitleBox">🏆👑 Winner 👑🏆</mat-card-title>
+      <br>
+      <mat-card-title class="cardTitleBox">{{winner.firstname}} {{winner.lastname}}</mat-card-title>
+    </mat-card>
+  </div>
+</div>

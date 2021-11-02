@@ -31,7 +31,11 @@ export class AppComponent {
   roundNumber: number = 0;
   roundNames: string [] = ['', 'Round of 32', 'Round of 16', 'Quarterfinals', 'Semifinals', 'Final']
   statusClass: string = 'btn btn-outline-success';
-
+  container1Visible:boolean = false;
+  container2Visible: boolean = true;
+  selectedGender: number = 0;
+  firstnameInput: string = '';
+  lastnameInput: string = '';
   winner: IPerson = {} as IPerson;
 
   constructor(private http: HttpClient) {
@@ -49,8 +53,6 @@ export class AppComponent {
     this.roundNumber = this.matches[0].round;
 
     })
- 
-
   }
   genereateTournament() {
     this.matches = [];
@@ -63,11 +65,10 @@ export class AppComponent {
     }))
   }
   nextRound() {
-    this.matches = [];
+  //  this.matches = [];
     this.http.get<IMatch[]>('http://localhost:5000/api/genereateRound').subscribe((result) => {
       this.matches = result;
       this.roundNumber = this.matches[0].round;
-
     })
     if (this.matches.length === 0) {
       this.http.get<IMatch[]>('http://localhost:5000/api/getUnplayedMatch').subscribe((result) => {
@@ -106,6 +107,28 @@ export class AppComponent {
     else{
       return 'warn'
     }
+  }
+  restore(){
+      this.container1Visible = false;
+      this.container2Visible = true;
+  }
+  addPerson(){
+    console.log(this.firstnameInput)
+    var gender = '';
+    if(this.selectedGender == 1){
+        gender = 'Male';
+    }else if(this.selectedGender == 2){
+      gender = 'Female';
+
+    }
+    const body = {
+      "firstname": this.firstnameInput,
+      "lastname": this.lastnameInput,
+      "gender": gender
+    }
+    this.http.post(`http://localhost:5000/api/addPerson`, body).subscribe(data => {
+      console.log(data)
+    })
   }
 
 }
