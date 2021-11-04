@@ -1,26 +1,14 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>Tournament Planner</span>
-    <span class="example-spacer"></span>
-    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-      <button [hidden]="container1Visible==true" class="btn btn-danger" (click)="genereateTournament();">New
-        Tournament</button>
+<html>
 
-      <button class="btn btn-danger" (click)="container1Visible=true; container2Visible=false">Add Person</button>
-      <button [hidden]="container2Visible==true" class="btn btn-danger" (click)="restore()">Back</button>
+<h1 [hidden]="container1Visible==true">{{roundNames[roundNumber]}}</h1>
+<div style="text-align: center;">
+  <button  [hidden]="container1Visible==true" class="btn btn-success" style="margin: 0 auto; display: inline-block;" (click)="container1Visible=true; container2Visible=false">Add Person</button>
+  <button [hidden]="container1Visible==true" style="margin: 0 auto; display: inline-block;"class="btn btn-danger" (click)="genereateTournament();">NewTournament</button>
+  <button [hidden]="container2Visible==true"style="margin: 0 auto; display: inline-block; margin-top:15px;" class="btn btn-danger" (click)="restore()">Back</button>
+  <button class="btn btn-success" (click)="nextRound()"style="margin: 0 auto; display: inline-block;" [disabled]="isDisabled()" [hidden]="container1Visible==true">Next Round</button> 
+</div>
 
-
-    </mat-button-toggle-group>
-
-  </mat-toolbar-row>
-  <mat-toolbar-row [hidden]="matches.length == 0 || container1Visible==true">
-    <span>Round: {{roundNames[roundNumber]}}</span>
-    <span class="example-spacer"></span>
-    <button class="btn btn-success" (click)="nextRound()" [disabled]="isDisabled()">Next Round</button>
-
-  </mat-toolbar-row>
-</mat-toolbar>
-
+<body>
 <div class="container1" [hidden]="!container1Visible">
  <mat-card class="personInputDesign">
   <mat-card-title>Add Club Member</mat-card-title>
@@ -70,7 +58,7 @@
     </mat-card>
 
   </div>
-  <div [hidden]="winner.id == undefined" id="cardsDiv">
+  <div [hidden]="winner.id == undefined || container1Visible==true" id="cardsDiv">
     <mat-card class="cardDesign">
       <mat-card-title class="cardTitleBox">🏆👑 Winner 👑🏆</mat-card-title>
       <br>
@@ -78,3 +66,5 @@
     </mat-card>
   </div>
 </div>
+</body>
+</html>

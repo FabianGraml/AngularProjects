@@ -45,14 +45,9 @@ export class AppComponent {
   ngOnInit() {
     this.http.get<IPerson[]>('http://localhost:5000/api/persons').subscribe((result) => this.persons = result)
     this.http.get<IMatch[]>('http://localhost:5000/api/getUnplayedMatch').subscribe((result) => {
-     this.matches = result;
-
-     if(this.matches.length === 0){
-      this.genereateTournament();
-    }
+    this.matches = result;
     this.roundNumber = this.matches[0].round;
-
-    })
+  })
   }
   genereateTournament() {
     this.matches = [];
@@ -69,15 +64,16 @@ export class AppComponent {
     this.http.get<IMatch[]>('http://localhost:5000/api/genereateRound').subscribe((result) => {
       this.matches = result;
       this.roundNumber = this.matches[0].round;
+    }, error => {
+      alert('There are still some rounds to play in round: '+this.roundNumber)
     })
     if (this.matches.length === 0) {
       this.http.get<IMatch[]>('http://localhost:5000/api/getUnplayedMatch').subscribe((result) => {
         this.matches = result;
         this.roundNumber = this.matches[0].round;
       })
-    }
-    console.log(this.matches)
   }
+}
   setMatchWinner(mathchId: number, matchWinnerId: number, round: number) {
     this.statusClass = 'btn btn-success';
     const body = {

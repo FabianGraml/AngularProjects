@@ -1,3 +1,7 @@
+$cBlue: #90D2D8;
+$cYellow: #FFECB8;
+$cRed: #F6A6B2;
+
 .example-spacer {
     flex: 1 1 auto;
   }
@@ -11,6 +15,7 @@
     margin: 0.3%;
     background-color: white;
   display: inline-block;
+  width: 600px;
 }
 .cardTitleBox{
     min-height: 100px;
@@ -21,32 +26,43 @@
 
 #cardsDiv{
     display: flex;
-    flex-wrap: wrap; /* Optional. only if you want the items to wrap */
-    justify-content: center; /* For horizontal alignment */
-    align-items: center; /* For vertical alignment */
+    flex-wrap: wrap; 
+    justify-content: center;
+    align-items: center; 
     margin-top: 1%;
-  
+   
 }
 .btnCards{
   text-align: center;
 }
 .cardDesign{
   margin: 10px;
-  width: 300px;
+  width: 350px;
 }
 .centerButton{
   text-align: center;
 }
 .personInputDesign{
   margin-top: 50px;
-  width: 24.4%;
+  width: 400px;
   background-color: white;
 display: inline-block;
 }
 .container1{
- text-align: center;
+  background: linear-gradient(90deg, $cBlue 0%, $cYellow 50%, $cRed 100%);
+  text-align: center;
 }
 .addPersonButton{
   margin: 10px;
 
+}
+.container2{
+  background: linear-gradient(90deg, $cBlue 0%, $cYellow 50%, $cRed 100%);
+}
+.newTournamentBtn{
+ margin-right: 10px;
+ margin-left: 10px;
+}
+#toolbar{
+background-color:transparent
 }
