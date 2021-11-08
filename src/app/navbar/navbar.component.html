@@ -1,0 +1,8 @@
+<div>
+  {{ header }}
+  <mat-button-toggle-group>
+    <mat-button-toggle (click)="classSelectedHandler(clazz.clazzName)" *ngFor="let clazz of clazzs">{{
+      clazz.clazzName
+    }}</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
