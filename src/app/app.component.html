@@ -1,2 +1,3 @@
 <app-navbar header="Klassen:" [clazzs]="clazzs" (classSelected)="onclassSelected($event)"></app-navbar>
+<h3 [hidden]="selectedClazzName == ''">Klasse: {{selectedClazzName}}</h3>
 <p>{{result}}</p>

@@ -17,6 +17,7 @@ export class AppComponent {
   studentsOfClazz: [] = [];
 
   result: string = '';
+  selectedClazzName: string = '';
 
 
   constructor(private http: HttpClient) { }
@@ -28,6 +29,7 @@ export class AppComponent {
     });
   }
   onclassSelected(name: string){
+    this.selectedClazzName = name;
     this.result = '';
     this.http.get<[]>('https://localhost:5001/Values/GetStudentsFromClazz/' + name).subscribe(data => {
       this.studentsOfClazz = data;
