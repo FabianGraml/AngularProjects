@@ -9,11 +9,15 @@ import { NavbarComponent } from './navbar/navbar.component'
 import { MatButtonModule } from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { StudentRowComponent } from './student-row/student-row.component';
+import { LogComponent } from './log/log.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
+    StudentRowComponent,
+    LogComponent
   ],
   imports: [
     FormsModule,

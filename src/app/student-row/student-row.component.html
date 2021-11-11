@@ -1,0 +1,20 @@
+<div>
+    <span>
+        <img *ngIf="student.gender == 'M'" src="../../assets/men-line.svg">
+        <img *ngIf="student.gender == 'F'" src="../../assets/women-line.svg">
+    </span>    <span>{{student.studentName}}</span>
+    <span>{{getAgeString()}}</span>
+    <span (click)="registeredChanged()">
+
+            <img *ngIf="student.registered == 1" src="../../assets/check-line.svg">
+            <img *ngIf="student.registered == 0" src="../../assets/close-line.svg">
+
+
+    </span>
+    <span><input type="number" [(ngModel)]="age"></span>
+    <span>
+        <button *ngFor="let item of getClazzsWhereStudentIsNotPart()" (click)="studentClazzChangedHandler({clazzId: item.clazzId, studentId: student.studentId})">{{item.clazzName}}</button>
+    </span>
+ 
+
+</div>
