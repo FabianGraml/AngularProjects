@@ -12,7 +12,7 @@
 
 
     </span>
-    <span><input type="number" [(ngModel)]="age"></span>
+    <span><input type="number" min="0" [(ngModel)]="age"></span>
     <span>
         <button *ngFor="let item of getClazzsWhereStudentIsNotPart()" (click)="studentClazzChangedHandler({clazzId: item.clazzId, studentId: student.studentId})">{{item.clazzName}}</button>
     </span>
