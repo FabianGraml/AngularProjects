@@ -3,11 +3,12 @@
 <h3 *ngIf="selectedClazzName == ''">Alle Schüler</h3>
 <app-log></app-log>
 
-<span>Gender</span>
-<span>Name</span>
-<span>Age</span>
-<span>Registered</span>
-<span>Age Input</span>
-<span>Change Class</span>
-
+<div>
+    <span>Gender</span>
+    <span>Name</span>
+    <span>Age</span>
+    <span>Reg.</span>
+    <span>Age Input</span>
+    <span>Change Class</span>
+</div>
 <app-student-row *ngFor="let student of students" [student]="student" [clazzs]="clazzs" [clazzOfStudent]="student.clazzId" [age]="student.age" (studentClazzChanged)="onStudentClazzChangedHandler($event)"></app-student-row>

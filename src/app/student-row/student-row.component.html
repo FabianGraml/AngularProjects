@@ -2,7 +2,8 @@
     <span>
         <img *ngIf="student.gender == 'M'" src="../../assets/men-line.svg">
         <img *ngIf="student.gender == 'F'" src="../../assets/women-line.svg">
-    </span>    <span>{{student.studentName}}</span>
+    </span>    
+    <span>{{student.studentName}}</span>
     <span>{{getAgeString()}}</span>
     <span (click)="registeredChanged()">
 

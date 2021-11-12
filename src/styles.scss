@@ -1,4 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+div {
+    input {
+        display: inline-block;
+      width: 100%; 
+    }
+    span {
+      display: inline-block;
+      width: calc(100% / 4);
+      padding: 5px;
+      overflow: visible;
+    }
+    span:nth-child(2) {
+        min-width: 150px; 
+    }
+    span:nth-child(1),
+    span:nth-child(3),
+    span:nth-child(4) {
+      width: 5%;
+      min-width: 40px; 
+    }
+    span:nth-child(1) {
+        min-width: 60px; 
+    }
+    span:nth-child(5) {
+      width: 6%;
+      min-width: 80px; 
+    }
+  }
+  
