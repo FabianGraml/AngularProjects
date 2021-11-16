@@ -1,23 +1,70 @@
-<h3>Express Demo Frontend</h3>
-<hr>
-<button class="btn btn-primary" (click)="getAllCustomers()">Get all Customers</button>
-<hr>
-<ul>
-  <li *ngFor="let item of customers">{{item.lastname}}, {{item.firstname}} ({{item.id}})</li>
-</ul>
+<html>
 
-<div>
-  <hr>
-<h3>Search user by Id</h3>
-<input [(ngModel)]="userToSearch">
-<p>{{customer|json}}</p>
-<button class="btn btn-success" (click)="getSingleUser()">Search user</button>
+<h1 [hidden]="container1Visible==true">{{roundNames[roundNumber]}}</h1>
+<div style="text-align: center;">
+  <button  [hidden]="container1Visible==true" class="btn btn-success" style="margin: 0 auto; display: inline-block;" (click)="container1Visible=true; container2Visible=false">Add Person</button>
+  <button [hidden]="container1Visible==true" style="margin: 0 auto; display: inline-block;"class="btn btn-danger" (click)="genereateTournament();">NewTournament</button>
+  <button [hidden]="container2Visible==true"style="margin: 0 auto; display: inline-block; margin-top:15px;" class="btn btn-danger" (click)="restore()">Back</button>
+  <button class="btn btn-success" (click)="nextRound()"style="margin: 0 auto; display: inline-block;" [disabled]="isDisabled()" [hidden]="container1Visible==true">Next Round</button> 
 </div>
-<hr>
-<div>
-  <h3>User to delete</h3>
-<input [(ngModel)]="userToDelete">
-<p></p>
-<button class="btn btn-success" (click)="deleteUser()">Delete User</button>
 
+<body>
+<div class="container1" [hidden]="!container1Visible">
+ <mat-card class="personInputDesign">
+  <mat-card-title>Add Club Member</mat-card-title>
+  <form>
+    <label for="fname">First name:</label><br>
+    <input id="fname" name="fname" [(ngModel)]="firstnameInput" type="text" class="form-control" aria-label="Sizing example input"
+    aria-describedby="inputGroup-sizing-default" />  
+    <label for="lname">Last name:</label><br>
+    <input id="lname" name="lname" [(ngModel)]="lastnameInput" type="text" class="form-control" aria-label="Sizing example input"
+    aria-describedby="inputGroup-sizing-default" />  
+    <label for="gender">Gender:</label><br>
+
+  <select name="gender" id="gender" class="form-select" aria-label="Default select example" [(ngModel)]="selectedGender">
+    <option [value]="1">Male</option>
+    <option [value]="2">Female</option>
+  </select>
+
+</form>
+<button (click)="addPerson()" class="btn btn-primary addPersonButton">Add Person</button>
+
+</mat-card>
+ 
+ 
 </div>
+
+<div class="container2">
+  <div id="cardsDiv" [hidden]="winner.id != undefined || !container2Visible">
+    <mat-card *ngFor="let item of matches" class="cardDesign">
+
+
+      <mat-card-title class="cardTitleBox">
+        <p [ngStyle]="{'background-color':item.person1.gender === 'Male' ? '#0088FF' : '#FF69B4' }">{{
+          item.person1.firstname }} {{item.person1.lastname}} </p>
+        vs
+        <p [ngStyle]="{'background-color':item.person2.gender === 'Male' ? '#0088FF' : '#FF69B4' }">{{
+          item.person2.firstname }} {{item.person2.lastname}}</p>
+      </mat-card-title>
+      <mat-card-actions class="btnCards">
+        <mat-button-toggle-group>
+          <mat-button-toggle (click)="setMatchWinner(item.id, item.person1.id, item.round)">{{item.person1.firstname}}
+            {{item.person1.lastname}}</mat-button-toggle>
+          <mat-button-toggle (click)="setMatchWinner(item.id, item.person2.id, item.round)">{{item.person2.firstname}}
+            {{item.person2.lastname}}</mat-button-toggle>
+        </mat-button-toggle-group>
+      </mat-card-actions>
+
+    </mat-card>
+
+  </div>
+  <div [hidden]="winner.id == undefined || container1Visible==true" id="cardsDiv">
+    <mat-card class="cardDesign">
+      <mat-card-title class="cardTitleBox">🏆👑 Winner 👑🏆</mat-card-title>
+      <br>
+      <mat-card-title class="cardTitleBox">{{winner.firstname}} {{winner.lastname}}</mat-card-title>
+    </mat-card>
+  </div>
+</div>
+</body>
+</html>
