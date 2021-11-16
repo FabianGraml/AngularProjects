@@ -1,68 +1,18 @@
-$cBlue: #90D2D8;
-$cYellow: #FFECB8;
-$cRed: #F6A6B2;
-
-.example-spacer {
-    flex: 1 1 auto;
-  }
-  .centerButton{
-    position: fixed;
-    left: 50%;
-    margin-top: 5px;
-  }
-  .card{
-    width: 24.4%;
-    margin: 0.3%;
-    background-color: white;
-  display: inline-block;
-  width: 600px;
+#page {
+  width: 1200px;
+  margin: 0px auto -1px auto;
+  padding: 15px;
 }
-.cardTitleBox{
-    min-height: 100px;
-    text-align: center;
-    vertical-align: middle;
-    line-height: normal;
+.InsideContent{
+  display:inline-block;
 }
 
-#cardsDiv{
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: center;
-    align-items: center; 
-    margin-top: 1%;
-   
+#divTable {
+  width: 800px;
 }
-.btnCards{
-  text-align: center;
-}
-.cardDesign{
-  margin: 10px;
+#divMessage {
   width: 350px;
 }
-.centerButton{
-  text-align: center;
-}
-.personInputDesign{
-  margin-top: 50px;
-  width: 400px;
-  background-color: white;
-display: inline-block;
-}
-.container1{
-  background: linear-gradient(90deg, $cBlue 0%, $cYellow 50%, $cRed 100%);
-  text-align: center;
-}
-.addPersonButton{
-  margin: 10px;
-
-}
-.container2{
-  background: linear-gradient(90deg, $cBlue 0%, $cYellow 50%, $cRed 100%);
-}
-.newTournamentBtn{
- margin-right: 10px;
- margin-left: 10px;
-}
-#toolbar{
-background-color:transparent
+.selects{
+  width: 250px;
 }
