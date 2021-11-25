@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-attempt',
@@ -9,11 +9,15 @@ export class AttemptComponent implements OnInit {
 
 @Input() availableColors : string[] = [];
 @Input() selectedColor: string = '';  
-
-
+@Output() selectedAttemptColorChanged = new EventEmitter<string>();
   constructor() { }
 
   ngOnInit(): void {
+  }
+  
+
+  attemptChangedHandler(selectedAttemptColorChanged: any): void {
+     this.selectedAttemptColorChanged.emit(selectedAttemptColorChanged);
   }
 
 }

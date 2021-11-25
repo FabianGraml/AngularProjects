@@ -1,8 +1,6 @@
-<div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Dropdown button
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a *ngFor="let color of availableColors" class="dropdown-item">{{color}}</a>
-    </div>
-  </div>
+<div class="input-group mb-3">
+  <select class="custom-select" id="inputGroupSelect01" (change)="attemptChangedHandler($any($event.target).value)">
+    <option value="" selected disabled hidden>Choose here</option>
+    <option *ngFor="let color of availableColors" [value]="color">{{color}}</option>
+  </select>
+</div>

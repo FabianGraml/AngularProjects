@@ -1,8 +1,15 @@
-<div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Dropdown button
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a *ngFor="let color of availableColors" class="dropdown-item">{{color}}</a>
+<h1>Hello, {{username}}! Your Game Id is: {{gameboard.id}}</h1>
+<div class="container">
+  <div class="row" *ngFor="let item of numbers">
+    <div class="col-sm" >
+      Attempt left:
+    </div>
+    <div class="col-sm" *ngFor="let item of selectedColorLength">
+      <app-attempt [availableColors]="availableColors" (selectedAttemptColorChanged)="onAttemptChangedHandler($event)"></app-attempt>
+    </div>
+    <div class="col-sm">
+      <button (click)="onSubmitAttemptClick()" >Submit Attempt</button>
     </div>
   </div>
+</div>
+

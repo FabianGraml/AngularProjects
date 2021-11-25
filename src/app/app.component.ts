@@ -13,6 +13,11 @@ import { GameboardDTO } from './models/gameboardDTO';
 export class AppComponent {
   title = 'angular-template';
   availableColors: string[] = [];
+  startNewGame: boolean = true;
+  game: boolean = false;
+  attempts: number = 0;
+  username: string = "";
+  gameboard: Gameboard = new Gameboard();
 
   constructor(private httpclient: HttpClient) {
     console.log("*** constructor Main");
@@ -22,6 +27,20 @@ export class AppComponent {
         this.availableColors = data;
       });
   }
+  onClickStartNewGame() {
+    this.startNewGame = true;
+    this.game = false;
+  }
+  onClickCreateGame(){
+    this.startNewGame = false;
+    this.game = true;
+     this.httpclient.get<Gameboard>('http://localhost:50097/api/CreateGame/'+this.attempts).subscribe(
+      (data) => {
+        this.gameboard = data;
+      }
+    );
+  }
+
 }
 
   
