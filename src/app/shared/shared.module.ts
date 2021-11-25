@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { GameComponent } from './game/game.component';
 import { IrrelevantRequestsPipe } from './pipes/irrelevant-requests.pipe';
 import { AttemptComponent } from './attempt/attempt.component';
+import { GameboardItemComponent } from './gameboard-item/gameboard-item.component';
 
 
 
@@ -10,7 +11,8 @@ import { AttemptComponent } from './attempt/attempt.component';
   declarations: [
     GameComponent,
     IrrelevantRequestsPipe,
-    AttemptComponent
+    AttemptComponent,
+    GameboardItemComponent
   ],
   imports: [
     CommonModule

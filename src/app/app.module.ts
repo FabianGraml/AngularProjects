@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
+import { GameboardItemComponent } from './shared/gameboard-item/gameboard-item.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,8 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [GameboardItemComponent] // define the dynamic component here in module.ts
+
 })
 export class AppModule { }

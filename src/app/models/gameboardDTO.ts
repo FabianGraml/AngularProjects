@@ -1,4 +1,4 @@
-export class GameboardDTO {
+export default class GameboardDTO {
      id: string = '';
      guess : string[] = [];
 }

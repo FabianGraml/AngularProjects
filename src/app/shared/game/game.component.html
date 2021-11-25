@@ -1,15 +1,9 @@
-<h1>Hello, {{username}}! Your Game Id is: {{gameboard.id}}</h1>
-<div class="container">
-  <div class="row" *ngFor="let item of numbers">
-    <div class="col-sm" >
-      Attempt left:
-    </div>
-    <div class="col-sm" *ngFor="let item of selectedColorLength">
-      <app-attempt [availableColors]="availableColors" (selectedAttemptColorChanged)="onAttemptChangedHandler($event)"></app-attempt>
-    </div>
-    <div class="col-sm">
-      <button (click)="onSubmitAttemptClick()" >Submit Attempt</button>
-    </div>
-  </div>
-</div>
+<div>
+<h1 style="display: flex; justify-content: center;">Hello, {{username}}! Your Game Id is: {{gameboard.id}}</h1>
+<hr>
+<app-gameboard-item [gameboard]="gameboard" [availableColors]="availableColors" [attempts]="gameboard.guesses"
+    (attemptSubmitHandler)="onAttemptSubmitHandler($event)" ></app-gameboard-item>
+<div #parent></div>
+<h2 style="display: flex; justify-content: center;">{{attemptDto.msg}}</h2>
 
+</div>

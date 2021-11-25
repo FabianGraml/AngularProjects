@@ -18,11 +18,10 @@
     </div>
   </div>
 </nav>
+<div class="container">
 <div class="root">
   <div class="startNewGame" [hidden]="startNewGame == false">
-
-
-    <h2>Start new Game</h2>
+    <h2 style="display: flex; justify-content: center;">Start new Game</h2>
     <label for="basic-url">Username</label>
     <div class="input-group mb-3">
       <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" [(ngModel)]="username">
@@ -31,17 +30,16 @@
     <div class="input-group mb-3">
       <input type="number" class="form-control" id="basic-url" aria-describedby="basic-addon3" [(ngModel)]="attempts">
     </div>
-   <button class="btn btn-primary" (click)="onClickCreateGame()" [disabled]="username == '' || attempts < 6 || attempts > 12">
+    <hr>
+    <button class="btn btn-primary" (click)="onClickCreateGame()"
+      [disabled]="username == '' || attempts < 6 || attempts > 12">
       Start Game
     </button>
-   
-
-
   </div>
   <div class="game" [hidden]="game == false">
-    <app-game [availableColors]="availableColors" [username]="username" [attempts]="attempts" [gameboard]="gameboard"></app-game>
+    <app-game [availableColors]="availableColors" [username]="username" [attempts]="attempts" [gameboard]="gameboard">
+    </app-game>
   </div>
 </div>
-
-
+</div>
 <router-outlet></router-outlet>

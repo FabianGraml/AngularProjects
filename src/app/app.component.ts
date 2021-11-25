@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { DummyService } from './core/dummy.service';
 import { HttpClient } from '@angular/common/http';
 import { Gameboard } from './models/gameboard';
-import { GameboardDTO } from './models/gameboardDTO';
 
 
 @Component({

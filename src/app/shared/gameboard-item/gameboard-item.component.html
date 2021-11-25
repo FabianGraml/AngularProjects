@@ -1,0 +1,18 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <h2>Attempts Left: {{attempts}}</h2> 
+      <!-- <h2>Attempts left: {{gameboard.guesses - gameboard.round}}</h2> -->
+    </div>
+    <div class="col-sm" *ngFor="let item of selectedColorLength">
+      <app-attempt [availableColors]="availableColors" (selectedAttemptColorChanged)="onAttemptChangedHandler($event)">
+      </app-attempt>
+    </div>
+    <div class="col-sm">
+      <button class="btn btn-primary" (click)="onSubmitAttemptClick({id: gameboard.id, guess: attemptColors})" [disabled]="attemptColors.length < 4 || buttonDisabled">Submit
+        Attempt</button>
+    </div>
+  </div>
+</div>
+<hr>
