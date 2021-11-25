@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-attempt',
@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./attempt.component.scss']
 })
 export class AttemptComponent implements OnInit {
+
+@Input() availableColors : string[] = [];
+@Input() selectedColor: string = '';  
+
 
   constructor() { }
 
