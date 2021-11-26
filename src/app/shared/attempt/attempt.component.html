@@ -1,5 +1,5 @@
 <div class="input-group mb-3">
-  <select class="form-select" id="inputGroupSelect01" (change)="attemptChangedHandler($any($event.target).value)">
+  <select class="form-select" id="inputGroupSelect01" (change)="attemptChangedHandler($any($event.target).value)" [disabled]="selectDisabled" [ngStyle]="{'background-color': selectedColorSelect}" >
     <option value="" selected disabled hidden>Choose here</option>
     <option *ngFor="let color of availableColors" [value]="color">{{color}}</option>
   </select>

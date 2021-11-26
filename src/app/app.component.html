@@ -11,6 +11,8 @@
           <a class="nav-link active" aria-current="page" (click)="onClickStartNewGame()">Start new Game</a>
         </li>
       </ul>
+      <button class="btn btn-primary" (click)="openDialog()">Open dialog</button>
+
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search for Game" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
@@ -42,4 +44,5 @@
   </div>
 </div>
 </div>
+
 <router-outlet></router-outlet>

@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Logs</h2>
+<mat-dialog-content class="mat-typography">
+ <ul>
+   <li *ngFor="let log of logs">{{log | irrelevantRequests}}</li>
+ </ul>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="btn btn-danger" mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

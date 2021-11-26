@@ -5,8 +5,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class IrrelevantRequestsPipe implements PipeTransform {
 
-  transform(value: unknown, ...args: unknown[]): unknown {
-    return null;
+  transform(request: string): string {
+     if(request.startsWith('PUT')){
+        return request;
+     } else {
+       return '** not relevant **';
+     }
   }
 
 }

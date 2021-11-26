@@ -10,6 +10,8 @@ export class AttemptComponent implements OnInit {
 @Input() availableColors : string[] = [];
 @Input() selectedColor: string = '';  
 @Output() selectedAttemptColorChanged = new EventEmitter<string>();
+selectDisabled: boolean = false;
+selectedColorSelect: string = ''
   constructor() { }
 
   ngOnInit(): void {
@@ -18,6 +20,10 @@ export class AttemptComponent implements OnInit {
 
   attemptChangedHandler(selectedAttemptColorChanged: any): void {
      this.selectedAttemptColorChanged.emit(selectedAttemptColorChanged);
+     this.selectDisabled = true;
+     this.selectedColorSelect = selectedAttemptColorChanged;
+     console.log(this.selectedColorSelect);
+
   }
 
 }
