@@ -12,7 +12,7 @@ import  AttemptDTO  from 'src/app/models/attemptDTO';
 })
 export class GameComponent implements OnInit {
 
-  @ViewChild('parent', {read: ViewContainerRef}) target: ViewContainerRef;
+  @ViewChild('parent', {read: ViewContainerRef}) target!: ViewContainerRef;
   private componentRef: any;
 
 
