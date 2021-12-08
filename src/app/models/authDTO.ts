@@ -1,6 +1,6 @@
 export class AuthDTO {
      
-    username!: string
+    email!: string
     firstname!: string
     lastname!: string
     token!: string

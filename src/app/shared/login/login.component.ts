@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  username = 'fabian.graml@gmail.com';
+  email = 'fabian.graml@gmail.com';
   password = '12345';
   authenticationDto!: AuthDTO;
   errorMessage = '';
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     this.authService.logout();
     console.log('LoginComponent::login');
     this.errorMessage = '';
-    this.authService.login(this.username, this.password).subscribe(
+    this.authService.login(this.email, this.password).subscribe(
       x => {
         this.authenticationDto = x
         this.router.navigate([this.returnUrl]);

@@ -1,17 +1,16 @@
-<!-- place two divs next to each other -->
-
-<div class="home">
-<div>
-<app-pie-chart [labels]="chartLabel" [data]="chartData"></app-pie-chart>
-</div>
-<div>
-    <app-line-chart [labels]="deathLabelSource" [data]="deathDataSource"></app-line-chart>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <h1 style="text-align: center;">Covid-19 Case Male/Female:</h1>
+      <app-pie-chart [labels]="chartLabel" [data]="chartData"></app-pie-chart>
+    </div>
+    <div class="col-sm">
+      <h1 style="text-align: center;">Covid-19 Deaths Austria:</h1>
+      <app-line-chart [labels]="deathLabelSource" [data]="deathDataSource"></app-line-chart>
+    </div>
   </div>
-</div>
-
-<div>
+  <div class="row mt-5">
+    <h1 style="text-align: center;">Covid-19 Cases Austria:</h1>
     <app-line-chart [labels]="casesLabelSource" [data]="casesDataSource"></app-line-chart>
   </div>
-
-
-  
+</div>

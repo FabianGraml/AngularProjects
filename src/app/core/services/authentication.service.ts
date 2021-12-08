@@ -11,10 +11,10 @@ export class AuthenticationService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public login(username: string, password: string) {
-    console.log(`AuthenticationService::login ${username}`);
+  public login(email: string, password: string) {
+    console.log(`AuthenticationService::login ${email}`);
     const url = `${this.urlBase}/authenticate`;
-    return this.httpClient.post<AuthDTO>(url, { username, password }).pipe(
+    return this.httpClient.post<AuthDTO>(url, { email, password }).pipe(
       tap(user => {
         if(user && user.token) {
           localStorage.setItem('currentUser', JSON.stringify(user));
