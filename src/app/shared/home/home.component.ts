@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
 
   deaths!: Observable<DeathsDTO>;
   newCases: CaseDTO[] = [];
-  genderCases!: GenderCasesDTO;
+  genderCases: GenderCasesDTO = {} as GenderCasesDTO;
 
   colors!: Color[];
 
@@ -34,9 +34,7 @@ export class HomeComponent implements OnInit {
   constructor(private valuesService: ValuesService) {
   }
 
-  ngOnInit(): void {
-    console.log('HomeComponent::ngOnInit()');
-  
+  ngOnInit(): void {  
     this.valuesService.getGenderCases().subscribe(data => {
       this.genderCases = data;
       this.colors = [{

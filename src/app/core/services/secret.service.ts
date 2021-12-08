@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CasesDistrictDTO } from 'src/app/models/casesDistrictDTO';
-import { HospitalizationsDTO } from 'src/app/models/hospitalizationsDTO';
+import { IntensiveCareAllTimeDTO } from 'src/app/models/intensiveCareAllTimeDTO';
 import { IntensiveCareDTO } from 'src/app/models/intensiveCareDTO';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class SecretService {
 
   getIntensiveCare = () => this.httpClient.get<IntensiveCareDTO>(this.urlBase + '/intensiveCare');
 
-  getHospitalizations = () => this.httpClient.get<HospitalizationsDTO>(this.urlBase + '/hospitalizations');
+  getIntensiveCareAllTime = () => this.httpClient.get<IntensiveCareAllTimeDTO[]>(this.urlBase + '/intensiveCareAllTime');
   
   getCasesDistrict = () => this.httpClient.get<CasesDistrictDTO>(this.urlBase + '/casesGKZ');
 }

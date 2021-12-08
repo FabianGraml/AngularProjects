@@ -7,7 +7,6 @@ import { LineChartComponent } from './line-chart/line-chart.component';
 import { SecretComponent } from './secret/secret.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
-import { RadarChartComponent } from './radar-chart/radar-chart.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +15,6 @@ import { RadarChartComponent } from './radar-chart/radar-chart.component';
     LineChartComponent,
     SecretComponent,
     LoginComponent,
-    RadarChartComponent,
   ],
   imports: [
     CommonModule,
