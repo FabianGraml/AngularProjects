@@ -11,6 +11,7 @@ export class PieChartComponent {
 
   @Input() labels!: string[];
   @Input() data!: number[];
+  @Input() colors!: Color[];
 
   public pieChartOptions: ChartOptions = {responsive: true,};
   public pieChartType: ChartType = 'pie';

@@ -11,7 +11,7 @@ export class LineChartComponent {
 
 
   @Input() labels!: string[];
-  @Input() data!: number[];
+  @Input() data!: ChartDataSets[];
 
 
 

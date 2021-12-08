@@ -10,7 +10,7 @@ import { Label } from 'ng2-charts';
 
 export class RadarChartComponent {
 
-  @Input() radarChartData!: number[];
+  @Input() data!: ChartDataSets[];
   @Input() radarChartLabels!: string[];
 
   public radarChartOptions: RadialChartOptions = {
