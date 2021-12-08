@@ -28,8 +28,8 @@ export class LoginComponent implements OnInit {
     this.errorMessage = '';
     this.authService.login(this.email, this.password).subscribe(
       x => {
-        this.authenticationDto = x
-        this.router.navigate([this.returnUrl]);
+        this.authenticationDto = x;
+        window.location.href="/secret"
       },
       err => {
         this.errorMessage = `${err.statusText}/${err.status} - User`
