@@ -5,14 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { MatButtonModule } from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-
+import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core/core.module';
+import { FeatureModule } from './feature/feature.module';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     FormsModule,
@@ -20,10 +20,10 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatCardModule,
-    MatButtonToggleModule
-    
+    ChartsModule,
+    SharedModule,
+    CoreModule,
+    FeatureModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
