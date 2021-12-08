@@ -41,8 +41,9 @@ export class HomeComponent implements OnInit {
       this.genderCases = data;
       this.colors = [{
         backgroundColor: [
-          '#ADD8E6',
           '#FFB6C1',
+          '#ADD8E6',
+        
         ]
       }];
     });
