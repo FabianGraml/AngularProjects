@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PersonListComponent } from './components/person-list/person-list.component';
 import { PersonEditComponent } from './components/person-edit/person-edit.component';
-
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +11,8 @@ import { PersonEditComponent } from './components/person-edit/person-edit.compon
     PersonEditComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     PersonListComponent,

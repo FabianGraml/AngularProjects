@@ -1,1 +1,22 @@
-<p>person-edit works!</p>
+  <p>
+    <input placeholder="Lastname" [(ngModel)]="lastName" (ngModelChange)="lastNameChange()"/><a>{{
+      lastlabel
+    }}</a>
+  </p>
+  <p>
+    <input placeholder="Firstname" [(ngModel)]="firstName" (ngModelChange)="firstNameChange()" /><a>{{
+      firstlabel
+    }}</a>
+  </p>
+  <p>
+    <input placeholder="Born" [(ngModel)]="born" (ngModelChange)="bornChange()" /><a>{{ bornlabel }}</a>
+  </p>
+  <p>
+    <input placeholder="Tel" [(ngModel)]="tel" (ngModelChange)="telChange()" /><a>{{ tellabel }}</a>
+  </p>
+  <p>
+    <input placeholder="Address" [(ngModel)]="addressString" (ngModelChange)="addressStringChange()" /><a>{{
+      addlabel
+    }}</a>
+  </p>
+  <button class="btn btn-primary" [disabled]="!validate()" (click)="addPerson()">Add Person</button>

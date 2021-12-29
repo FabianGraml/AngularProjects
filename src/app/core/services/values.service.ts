@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { PersonDTO } from 'src/app/models/personDTO';
 
 @Injectable({
@@ -11,9 +12,10 @@ export class ValuesService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getPersons = () => this.httpClient.get(this.urlBase + 'Persons');
-  getPersonsById = (id:number) => this.httpClient.get(this.urlBase + 'Persons/'+id);
-  addPerson = (person:PersonDTO) => this.httpClient.post(this.urlBase + 'Persons', person);
-
- 
+  getPersons = () => this.httpClient.get<PersonDTO[]>(this.urlBase + 'Persons');
+  getPersonsById = (id:number) => this.httpClient.get<PersonDTO>(this.urlBase + 'Persons/'+id);
+  
+  addPerson(person:PersonDTO) :Observable<any> {
+      return this.httpClient.post<any>(this.urlBase + 'Persons', person);
+  }
 }
