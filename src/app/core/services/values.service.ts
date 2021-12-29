@@ -16,6 +16,6 @@ export class ValuesService {
   getPersonsById = (id:number) => this.httpClient.get<PersonDTO>(this.urlBase + 'Persons/'+id);
   
   addPerson(person:PersonDTO) :Observable<any> {
-      return this.httpClient.post<any>(this.urlBase + 'Persons', person);
+      return this.httpClient.post<any>(this.urlBase + 'Persons', person, {observe: 'response'});
   }
 }

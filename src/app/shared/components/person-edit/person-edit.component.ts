@@ -94,9 +94,15 @@ export class PersonEditComponent implements OnInit {
       tel: this.tel,
       addressString: this.addressString
     }
-    this.valueService.addPerson(person).subscribe((data) => {
-      this.responseCode = data.statusText;
-      this.notify.notify(1);
-    });
+    this.valueService.addPerson(person).subscribe(
+      (data) => {
+       this.responseCode = data.statusText;
+       console.log(this.responseCode)
+      },
+      (error) => {
+        this.responseCode = error.message;
+        console.log(this.responseCode)
+      }
+    );
   }
 }
