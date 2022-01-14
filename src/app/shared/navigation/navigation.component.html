@@ -6,5 +6,6 @@
 <label for="dateSelect">Datum:</label>
 <select id="dateSelect" [(ngModel)]="filter.date"><option *ngFor="let date of dates">{{date}}</option></select>
 <button (click)="logout()">Logout</button>
-<p>{{golfclubs | json}}</p>
 <hr>
+<div></div>
+<app-overview *ngIf="filter.golfClubId != null && filter.date != null"></app-overview>

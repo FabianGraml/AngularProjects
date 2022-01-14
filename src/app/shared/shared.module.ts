@@ -4,6 +4,8 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { FormsModule } from '@angular/forms';
 import { OverviewComponent } from './overview/overview.component';
 import { FlightComponent } from './flight/flight.component';
+import { NumberFormatPipe } from './number-format.pipe';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -11,14 +13,14 @@ import { FlightComponent } from './flight/flight.component';
   declarations: [
     NavigationComponent,
     OverviewComponent,
-    FlightComponent
+    FlightComponent,
+    NumberFormatPipe,
+    HomeComponent,
+    OverviewComponent
   ],
   imports: [
     CommonModule,
     FormsModule
   ],
-  exports: [
-    NavigationComponent
-  ]
 })
 export class SharedModule { }

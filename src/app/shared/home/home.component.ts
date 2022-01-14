@@ -1,16 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
 import { IGolfClubDTO } from 'src/app/models/IGolfClubDTO';
-
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
   selectedGolfclub!: string;
   selectedDate!: string
   golfclubs!: IGolfClubDTO[];
@@ -22,6 +18,5 @@ export class HomeComponent implements OnInit {
     this.apiService.getGolfClubs().subscribe(x => {
       this.golfclubs = x;
     });
-    
   }
 }

@@ -6,8 +6,8 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { LoginModule } from './login/login.module';
+import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
-import { HomeModule } from './home/home.module';
 
 
 @NgModule({
@@ -20,7 +20,6 @@ import { HomeModule } from './home/home.module';
     HttpClientModule,
     BrowserAnimationsModule,
     LoginModule,
-    HomeModule,
     AppRoutingModule,
     CoreModule,
   ],

@@ -5,6 +5,7 @@ import PlayerDTO from 'src/app/models/playerDTO';
 import PlayerLoginDTO from 'src/app/models/playerLoginDTO';
 import { tap } from 'rxjs/operators'; 
 import { IGolfClubDTO } from 'src/app/models/IGolfClubDTO';
+import { IBookingDTO } from 'src/app/models/IBookingDTO';
 
 
 
@@ -22,6 +23,9 @@ export class ApiService {
   }
   getGolfClubs() : Observable<IGolfClubDTO[]>{
     return this.http.get<IGolfClubDTO[]>(this.urlBase+'golfclubs')
+  }
+  getBooking(golfClubId: number, date: string, hours:number, minutes:number) : Observable<IBookingDTO> {
+    return this.http.get<IBookingDTO>(this.urlBase+`booking?golfClubId=${golfClubId}&date=${date}&hours=${hours}&minutes=${minutes}`)
   }
 
 
