@@ -17,12 +17,12 @@ export class OverviewComponent implements OnInit {
   minutes: number[] = [];
   hours: number[] = [];
 
+  
+
   ngOnInit(): void {
     this.notifierService.listen().subscribe((x) => {
-      console.log('Change')
       this.filter = x;
 
-      // create hours from 8 to 18 and minutes from 10 to 50  (10 minutes steps)
       this.minutes = [0,30]//[0, 10, 20, 30, 40, 50];
       this.hours = [8,9]//[8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
       this.flights = [];
@@ -36,7 +36,6 @@ export class OverviewComponent implements OnInit {
           });
         }
       }
-      console.log(this.flights);
     });
   }
 }

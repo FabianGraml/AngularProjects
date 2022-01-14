@@ -24,11 +24,19 @@ export class NavigationComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.notifierService.notify(this.filter);
   }
 
   logout() {
     sessionStorage.removeItem('currentUser');
     location.reload();
+  }
+  golfClubChanged(){
+    //create new filter object every time you'll need Subject isntead of ReplaySubject in Service
+    this.notifierService.notify(this.filter);
+
+  }
+  dateChanged(){
+    //create new filter object every time you'll need Subject isntead of ReplaySubject in Service
+    this.notifierService.notify(this.filter);
   }
 }

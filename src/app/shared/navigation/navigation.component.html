@@ -1,10 +1,10 @@
 <hr>
 <label for="golfClubSelect">Golfclub:</label>
-<select id="golfClubSelect" [(ngModel)]="filter.golfClubId">
+<select id="golfClubSelect" [(ngModel)]="filter.golfClubId" (ngModelChange)="golfClubChanged()">
     <option *ngFor="let golfclub of golfclubs" [ngValue]="golfclub.golfClubId">{{golfclub.name}}</option>
 </select>
 <label for="dateSelect">Datum:</label>
-<select id="dateSelect" [(ngModel)]="filter.date"><option *ngFor="let date of dates">{{date}}</option></select>
+<select id="dateSelect" [(ngModel)]="filter.date" (ngModelChange)="dateChanged()"><option *ngFor="let date of dates">{{date}}</option></select>
 <button (click)="logout()">Logout</button>
 <hr>
 <div></div>

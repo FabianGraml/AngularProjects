@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { AsyncSubject, BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
 import { IFilter } from 'src/app/models/filter';
 
 @Injectable({
@@ -9,12 +9,11 @@ export class NotifierService {
 
   private filterRepository = new ReplaySubject<IFilter>()
 
-  notify(filter: IFilter){
-    console.log('NOTIFY')
+  public notify(filter: IFilter){
+    console.log(filter)
     this.filterRepository.next(filter)
   }
-  listen():Observable<IFilter>{
-    console.log('LISTEN')
+  public listen():Observable<IFilter>{
     return this.filterRepository.asObservable();
   }
 }
