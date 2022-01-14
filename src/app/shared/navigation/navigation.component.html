@@ -1,0 +1,10 @@
+<hr>
+<label for="golfClubSelect">Golfclub:</label>
+<select id="golfClubSelect" [(ngModel)]="filter.golfClubId">
+    <option *ngFor="let golfclub of golfclubs" [ngValue]="golfclub.golfClubId">{{golfclub.name}}</option>
+</select>
+<label for="dateSelect">Datum:</label>
+<select id="dateSelect" [(ngModel)]="filter.date"><option *ngFor="let date of dates">{{date}}</option></select>
+<button (click)="logout()">Logout</button>
+<p>{{golfclubs | json}}</p>
+<hr>

@@ -5,9 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { MatButtonModule } from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { LoginModule } from './login/login.module';
+import { CoreModule } from './core/core.module';
+import { HomeModule } from './home/home.module';
 
 
 @NgModule({
@@ -17,13 +17,12 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
   imports: [
     FormsModule,
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatCardModule,
-    MatButtonToggleModule
-    
+    LoginModule,
+    HomeModule,
+    AppRoutingModule,
+    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,9 @@
+<h2>TeeOnline - Login</h2>
+<label for="email">E-Mail:</label>
+<input id="email" [(ngModel)]="email">
+<label for="password">Password:</label>
+<input id="password" [(ngModel)]="password">
+<button (click)="login()">Anmelden</button>
+<div style="color: red;">
+    {{errorMessage}}
+</div>
