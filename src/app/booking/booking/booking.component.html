@@ -7,22 +7,34 @@
 <h3 style="margin: 5px;">Gewünschte Flightpartner wählen:</h3>
 
 <div class="selectDiv">
-  <select [(ngModel)]="selectedPlayer1" (change)="onChange(selectedPlayer1)">
+  <select [(ngModel)]="selectedPlayer1" (change)="onChange(selectedPlayer1)" [ngClass]="{
+    'currentPlayer': selectedPlayer1 == currentPlayerId,
+    'notCurrentPlayer':  selectedPlayer2 != currentPlayerId
+}">
+    <option *ngFor="let player of players" [value]="player.playerId" >
+      {{ player | playerToString }}
+    </option>
+  </select>
+  <select [(ngModel)]="selectedPlayer2" (change)="onChange(selectedPlayer2)" [ngClass]="{
+    'currentPlayer': selectedPlayer2 == currentPlayerId,
+    'notCurrentPlayer':  selectedPlayer2 != currentPlayerId
+}">
     <option *ngFor="let player of players" [value]="player.playerId">
       {{ player | playerToString }}
     </option>
   </select>
-  <select [(ngModel)]="selectedPlayer2" (change)="onChange(selectedPlayer2)">
+  <select [(ngModel)]="selectedPlayer3" (change)="onChange(selectedPlayer3)" [ngClass]="{
+    'currentPlayer': selectedPlayer3 == currentPlayerId,
+    'notCurrentPlayer':  selectedPlayer3 != currentPlayerId
+}">
     <option *ngFor="let player of players" [value]="player.playerId">
       {{ player | playerToString }}
     </option>
   </select>
-  <select [(ngModel)]="selectedPlayer3" (change)="onChange(selectedPlayer3)">
-    <option *ngFor="let player of players" [value]="player.playerId">
-      {{ player | playerToString }}
-    </option>
-  </select>
-  <select [(ngModel)]="selectedPlayer4" (change)="onChange(selectedPlayer4)">
+  <select [(ngModel)]="selectedPlayer4" (change)="onChange(selectedPlayer4)"[ngClass]="{
+    'currentPlayer': selectedPlayer4 == currentPlayerId,
+    'notCurrentPlayer':  selectedPlayer4 != currentPlayerId
+}">
     <option *ngFor="let player of players" [value]="player.playerId">
       {{ player | playerToString }}
     </option>

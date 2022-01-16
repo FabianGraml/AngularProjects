@@ -23,6 +23,8 @@ export class BookingComponent implements OnInit {
   selectedPlayer4!: number;
   flightPartners!: number[];
 
+  currentPlayerId = +sessionStorage.getItem('currentUser')!
+
 
   constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private router: Router) { }
 
@@ -45,6 +47,7 @@ export class BookingComponent implements OnInit {
     this.router.navigate(['/'])
   }
   onChange(value:any){
+    this.players = this.players.filter(x => x.playerId !== value)
     console.log(value)
   }
   addBooking(){
