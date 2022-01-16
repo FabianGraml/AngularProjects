@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NotifierService } from 'src/app/core/services/notifier.service';
-import { IFilter } from 'src/app/models/filter';
+import { IFilter } from 'src/app/models/IFilter';
 import { IGolfClubDTO } from 'src/app/models/IGolfClubDTO';
 
 @Component({

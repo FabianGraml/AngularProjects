@@ -6,6 +6,7 @@ import { OverviewComponent } from './overview/overview.component';
 import { FlightComponent } from './flight/flight.component';
 import { NumberFormatPipe } from './number-format.pipe';
 import { HomeComponent } from './home/home.component';
+import { PlayerToStringPipe } from './player-to-string.pipe';
 
 
 
@@ -16,11 +17,17 @@ import { HomeComponent } from './home/home.component';
     FlightComponent,
     NumberFormatPipe,
     HomeComponent,
-    OverviewComponent
+    OverviewComponent,
+    PlayerToStringPipe
   ],
   imports: [
     CommonModule,
     FormsModule
   ],
+  exports: [
+    NumberFormatPipe,
+    FlightComponent,
+    PlayerToStringPipe
+  ]
 })
 export class SharedModule { }

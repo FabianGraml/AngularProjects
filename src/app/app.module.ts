@@ -19,9 +19,10 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    CoreModule,
+    SharedModule,
     LoginModule,
     AppRoutingModule,
-    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,33 @@
+<h1 style="margin: 5px;">TeeOnline - Startzeit reservieren</h1>
+<h2 style="margin: 5px;">
+  Gewünschte Startzeit: {{ date }} {{ hour | numberFormat }}:{{
+    minute | numberFormat
+  }}
+</h2>
+<h3 style="margin: 5px;">Gewünschte Flightpartner wählen:</h3>
+
+<div class="selectDiv">
+  <select [(ngModel)]="selectedPlayer1" (change)="onChange(selectedPlayer1)">
+    <option *ngFor="let player of players" [value]="player.playerId">
+      {{ player | playerToString }}
+    </option>
+  </select>
+  <select [(ngModel)]="selectedPlayer2" (change)="onChange(selectedPlayer2)">
+    <option *ngFor="let player of players" [value]="player.playerId">
+      {{ player | playerToString }}
+    </option>
+  </select>
+  <select [(ngModel)]="selectedPlayer3" (change)="onChange(selectedPlayer3)">
+    <option *ngFor="let player of players" [value]="player.playerId">
+      {{ player | playerToString }}
+    </option>
+  </select>
+  <select [(ngModel)]="selectedPlayer4" (change)="onChange(selectedPlayer4)">
+    <option *ngFor="let player of players" [value]="player.playerId">
+      {{ player | playerToString }}
+    </option>
+  </select>
+</div>
+
+<button style="margin: 5px;" (click)="addBooking()">Reservierung durchführen</button>
+<button style="margin: 5px;" (click)="exit()">Abbrechen und zurück zur Übersicht</button>

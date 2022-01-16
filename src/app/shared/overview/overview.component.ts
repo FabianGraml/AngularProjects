@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NotifierService } from 'src/app/core/services/notifier.service';
-import { IFilter } from 'src/app/models/filter';
+import { IFilter } from 'src/app/models/IFilter';
 import { IFlight } from 'src/app/models/IFlight';
 
 @Component({

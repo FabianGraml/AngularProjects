@@ -1,0 +1,16 @@
+.root {
+    border: 2px solid black;
+    margin: 2px;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+}
+.free{
+    background-color: lightgreen;
+}
+.booked{
+    background-color: lightyellow;
+}
+.locked{
+    background-color: lightcoral;
+}

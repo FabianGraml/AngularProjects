@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/core/services/api.service';
-import PlayerDTO from 'src/app/models/playerDTO';
-import PlayerLoginDTO from 'src/app/models/playerLoginDTO';
+import { IPlayerDTO } from 'src/app/models/IPlayerDTO';
+import { IPlayerLoginDTO } from 'src/app/models/IPlayerLoginDTO';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   email!: string;
   password!: string;
-  playerDTO!: Observable<PlayerDTO>;
+  playerDTO!: Observable<IPlayerDTO>;
   errorMessage!: string;
   returnUrl = 'home';
 
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    var playerLoginDTO : PlayerLoginDTO = {
+    var playerLoginDTO : IPlayerLoginDTO = {
       email: this.email,
       password: this.password,
     }

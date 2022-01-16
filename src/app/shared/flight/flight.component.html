@@ -1,8 +1,8 @@
-<div>
-    <div>
+<div (click)="bookFlight()" [ngClass]="{
+        'free': booked < 4,
+        'booked': booked > 0 && booked < 4,
+        'locked': booked >= 4
+    }" class="root">
         <h3>{{hour | numberFormat}}:{{minute | numberFormat}}</h3>
-    </div>
-    <div>
-        <h4>{{4- booked}}</h4>
-    </div>
+        <h3>{{4 - booked}} frei</h3>
 </div>
