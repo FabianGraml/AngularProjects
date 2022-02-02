@@ -1,6 +1,13 @@
-<input [(ngModel)]="userName">
-<button (click)="login()">Login</button>
-<ul>
+<div [hidden]="loggedIn">
+    <input [(ngModel)]="userName">
+    <button (click)="login()">Login</button>
+</div>
+<div [hidden]="!loggedIn">
+    <button (click)="disconnect()">Disconnect</button>
+</div>
+
+<ul [hidden]="!loggedIn">
     <li *ngFor="let msg of messages">{{msg}}</li>
 </ul>
+<p [hidden]="!loggedIn">Connected Users: {{amountOfUsers}}</p>
 <router-outlet></router-outlet>

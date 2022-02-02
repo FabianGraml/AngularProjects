@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { IConnectedUserDTO } from './models/connectedUserDTO';
 import { ITransactionDTO } from './models/transactionDTO';
 
 @Component({
@@ -12,27 +13,39 @@ export class AppComponent {
   transactions: ITransactionDTO[] = [];
   messages: string[] = [];
   userName: string = "";
+  amountOfUsers = 0;
+  loggedIn = false;
+
   ngOnInit() {
     this.hubConnection = new HubConnectionBuilder()
       .withUrl('http://localhost:5174/stockHub')
       .build();
 
-    this.hubConnection.start().then(() => {
-      console.log('*** connection established');
-    }).catch(err => console.log('*** connection error: ' + err));
 
-    //Also show username if page is refreshed
-    this.hubConnection.on('login', (name) => {
-      var msg = `${name} logged in`;
+    this.hubConnection.on('connectedUsers', (connectedUsers: number) => {
+      this.amountOfUsers = connectedUsers;
+    });
+
+    this.hubConnection.on('login', (connectedUser: IConnectedUserDTO) => {
+      var msg = `${connectedUser.username} logged in`;
+      this.amountOfUsers = connectedUser.amountOfUsers;
       this.messages.push(msg);
+      this.loggedIn = true;
     });
   }
 
   login() {
-    //x is still null altough the hubConnection should be available here.
-    this.hubConnection.send('login', this.userName).then(x => {
-
-    });
+    this.hubConnection.start().then(() => {
+      console.log('*** connection established');
+      this.hubConnection.send('login', {userName: this.userName, connectedUsers: 0}).then(x => {
+        this.loggedIn= true;
+      });
+        }).catch(err => console.log('*** connection error: ' + err));
   }
-
+  disconnect() {
+    this.loggedIn = false;
+    this.hubConnection.stop()
+    .then(_=>console.log('connection stopped'))
+    .catch(err=>console.log('error while stopping connection: ' + err));
+  }
 }

@@ -1,4 +1,4 @@
-﻿namespace SignalRStocksBackend.DTOs
+namespace SignalRStocksBackend.DTOs
 {
     public class ConnectedUsers
     {

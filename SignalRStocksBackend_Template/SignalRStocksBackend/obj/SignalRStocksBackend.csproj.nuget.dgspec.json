@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Fabian\\Desktop\\SignalRStocksBackend_Template\\SignalRStocksBackend\\SignalRStocksBackend.csproj": {}
+    "C:\\Users\\Fabian\\Desktop\\AngularProjects\\SignalRStocksBackend_Template\\SignalRStocksBackend\\SignalRStocksBackend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Fabian\\Desktop\\SignalRStocksBackend_Template\\SignalRStocksBackend\\SignalRStocksBackend.csproj": {
+    "C:\\Users\\Fabian\\Desktop\\AngularProjects\\SignalRStocksBackend_Template\\SignalRStocksBackend\\SignalRStocksBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Fabian\\Desktop\\SignalRStocksBackend_Template\\SignalRStocksBackend\\SignalRStocksBackend.csproj",
+        "projectUniqueName": "C:\\Users\\Fabian\\Desktop\\AngularProjects\\SignalRStocksBackend_Template\\SignalRStocksBackend\\SignalRStocksBackend.csproj",
         "projectName": "SignalRStocksBackend",
-        "projectPath": "C:\\Users\\Fabian\\Desktop\\SignalRStocksBackend_Template\\SignalRStocksBackend\\SignalRStocksBackend.csproj",
+        "projectPath": "C:\\Users\\Fabian\\Desktop\\AngularProjects\\SignalRStocksBackend_Template\\SignalRStocksBackend\\SignalRStocksBackend.csproj",
         "packagesPath": "C:\\Users\\Fabian\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Fabian\\Desktop\\SignalRStocksBackend_Template\\SignalRStocksBackend\\obj\\",
+        "outputPath": "C:\\Users\\Fabian\\Desktop\\AngularProjects\\SignalRStocksBackend_Template\\SignalRStocksBackend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Fabian\\AppData\\Roaming\\NuGet\\NuGet.Config",
