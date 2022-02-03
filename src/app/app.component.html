@@ -1,13 +1,65 @@
-<div [hidden]="loggedIn">
-    <input [(ngModel)]="userName">
-    <button (click)="login()">Login</button>
+<h1 class="mt-3 fw-bolder" style="text-align: center">ATX Stock Exchange</h1>
+<hr />
+<div class="d-flex" style="align-items: center; justify-content: center">
+  <div class="input-group w-auto ms-3" style="width: 25%" [hidden]="loggedIn">
+    <input
+      [(ngModel)]="userName"
+      type="text"
+      class="form-control"
+      placeholder="Username"
+      aria-label="Username"
+      aria-describedby="button-addon2"
+    />
+    <button
+      (click)="login()"
+      class="btn btn-primary"
+      type="button"
+      id="button-addon2"
+    >
+      Connect
+    </button>
+  </div>
+  <div>
+    <label class="ms-3 fs-6 fw-bolder text-danger" [hidden]="loggedIn">{{
+      errorMsg
+    }}</label>
+  </div>
 </div>
+<div class="d-flex ms-3" style="align-items: center; justify-content: center">
+  <div [hidden]="!loggedIn">
+    <button class="btn btn-warning" (click)="disconnect()">Disconnect</button>
+  </div>
+  <div [hidden]="!loggedIn">
+    <label class="ms-3 fs-6 fw-bolder text-success"
+      >Connected Users: {{ amountOfConnectedUsers }}</label
+    >
+  </div>
+</div>
+<hr />
 <div [hidden]="!loggedIn">
-    <button (click)="disconnect()">Disconnect</button>
+  <div class="container">
+    <div class="row">
+      <div class="col" style="text-align: center">
+        <label class="mt-3 fs-6 fw-bolder" style="text-align: center"
+          >Logged in as:
+        </label>
+        <br />
+        <label class="mt-3 fs-6 fw-bolder" style="text-align: center">{{
+          currentUser.name
+        }}</label>
+      </div>
+      <div class="col" style="text-align: center">
+        <label class="mt-3 fs-6 fw-bolder" style="text-align: center"
+          >Account Balance:</label
+        >
+        <br />
+        <label class="mt-3 fs-6 fw-bolder" style="text-align: center"
+          >{{ currentUser.cash }}€</label
+        >
+      </div>
+    </div>
+  </div>
+  <hr>
 </div>
 
-<ul [hidden]="!loggedIn">
-    <li *ngFor="let msg of messages">{{msg}}</li>
-</ul>
-<p [hidden]="!loggedIn">Connected Users: {{amountOfUsers}}</p>
 <router-outlet></router-outlet>

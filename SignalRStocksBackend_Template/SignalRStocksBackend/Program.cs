@@ -7,7 +7,7 @@ string corsKey = "_myCorsKey";
 // Add services to the container.
 builder.Services.AddSingleton<StockTickerService>();
 builder.Services.AddSingleton<StockContext>();
-builder.Services.AddSingleton<StockService>();
+builder.Services.AddTransient<StockService>();
 builder.Services.AddSingleton<StockHub>();
 builder.Services.AddSignalR();
 builder.Services.AddMvc(options => options.EnableEndpointRouting = false);

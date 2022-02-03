@@ -1,12 +1,18 @@
 using Microsoft.AspNetCore.SignalR;
 using SignalRStocksBackend.DTOs;
+using SignalRStocksBackend.Entities;
+using SignalRStocksBackend.Services;
 
 namespace SignalRStocksBackend.Hubs
 {
   public class StockHub : Hub
   {
     public int NrConnectedUsers { get; set; } = 0;
-
+    private readonly StockService stockService;
+    public StockHub(StockService stockService)
+    {
+      this.stockService = stockService;
+    }
     public override Task OnConnectedAsync()
     {
       NrConnectedUsers++;
@@ -27,21 +33,15 @@ namespace SignalRStocksBackend.Hubs
     {
       Clients.All.SendAsync("connectedUsers", NrConnectedUsers);
     }
-    public void Login(ConnectedUsers connectedUsers)
+    public void Login(string userName)
     {
-      Console.WriteLine(connectedUsers.Username);
-      connectedUsers = new ConnectedUsers
-      {
-        AmountOfUsers = NrConnectedUsers,
-        Username = connectedUsers.Username,
-      };
       NotifyConnectedUsers();
-      Clients.All.SendAsync("login", connectedUsers);
+      Clients.All.SendAsync("login", stockService.Login(userName));
     }
-    public void Disconnect(ConnectedUsers connectedUsers)
+    public void Disconnect()
     {
       NotifyConnectedUsers();
-      Clients.All.SendAsync("disconnect", connectedUsers);
+      Clients.All.SendAsync("disconnect");
     }
   }
 }

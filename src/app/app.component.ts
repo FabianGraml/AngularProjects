@@ -1,51 +1,67 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
-import { IConnectedUserDTO } from './models/connectedUserDTO';
-import { ITransactionDTO } from './models/transactionDTO';
+import { IUserDTO } from './models/userDTO';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   private hubConnection!: HubConnection;
-  transactions: ITransactionDTO[] = [];
-  messages: string[] = [];
-  userName: string = "";
-  amountOfUsers = 0;
+ 
+  userName: string = '';
+ 
+  errorMsg!: string;
+  currentUser!: IUserDTO;
+  amountOfConnectedUsers = 0;
   loggedIn = false;
+
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.hubConnection = new HubConnectionBuilder()
       .withUrl('http://localhost:5174/stockHub')
       .build();
 
-
     this.hubConnection.on('connectedUsers', (connectedUsers: number) => {
-      this.amountOfUsers = connectedUsers;
-    });
-
-    this.hubConnection.on('login', (connectedUser: IConnectedUserDTO) => {
-      var msg = `${connectedUser.username} logged in`;
-      this.amountOfUsers = connectedUser.amountOfUsers;
-      this.messages.push(msg);
-      this.loggedIn = true;
+      this.amountOfConnectedUsers = connectedUsers;
     });
   }
 
   login() {
-    this.hubConnection.start().then(() => {
-      console.log('*** connection established');
-      this.hubConnection.send('login', {userName: this.userName, connectedUsers: 0}).then(x => {
-        this.loggedIn= true;
-      });
-        }).catch(err => console.log('*** connection error: ' + err));
+    this.http
+      .get<IUserDTO>(
+        'https://localhost:7174/api/Stock/Login?username=' + this.userName
+      )
+      .subscribe(
+        (x) => {
+          if (x.id != -1) {
+            this.currentUser = x;
+            this.hubConnection
+              .start()
+              .then(() => {
+                console.log('connection started');
+                this.loggedIn = true;
+                this.errorMsg = '';
+              })
+              .catch((err) => console.log('*** connection error: ' + err));
+          } else {
+            this.errorMsg = 'Cannot connect to server';
+          }
+        },
+        (error) => {
+          this.errorMsg = error;
+        }
+      );
   }
+
   disconnect() {
     this.loggedIn = false;
-    this.hubConnection.stop()
-    .then(_=>console.log('connection stopped'))
-    .catch(err=>console.log('error while stopping connection: ' + err));
+    this.hubConnection
+      .stop()
+      .then((_) => console.log('connection stopped'))
+      .catch((err) => console.log('error while stopping connection: ' + err));
   }
 }
