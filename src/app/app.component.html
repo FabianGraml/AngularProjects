@@ -65,8 +65,12 @@
 </div>
 </div>
 <select [(ngModel)]="selectedShare" class="form-select ">
-  <option *ngFor="let share of shares">{{share.name}}</option>
+  <option *ngFor="let share of shares" [ngValue]="share">{{share.name}}</option>
 </select>
 <input [(ngModel)]="shareAmount" type="number">
-<button (click)="buyShare()" class="btn btn-primary">Buy</button>
+<button (click)="buyShare()" class="btn btn-primary" [disabled]="shareAmount <= 0 || selectedShare.name == undefined">Buy</button>
+
+<div>
+  <p *ngFor="let log of logs">{{log}}</p>
+</div>
 <router-outlet></router-outlet>

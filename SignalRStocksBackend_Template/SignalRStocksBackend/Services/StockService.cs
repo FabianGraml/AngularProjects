@@ -43,4 +43,41 @@ public class StockService
   {
     return db.Shares.Select(x => new ShareDto().CopyPropertiesFrom(x)).ToList();
   }
+
+  public TransactionDto Buy(TransactionDto transactionDto)
+  {
+    var share = db.Shares.FirstOrDefault(x => x.Name == transactionDto.ShareName);
+
+    //check if the enough shares are available in the Database
+    if (transactionDto.Amount > share!.UnitsInStock)
+    {
+      return new TransactionDto();
+    }
+
+    //Edit Database entries
+    var shareDatabase = db.Shares.Where(x => x.Id == share!.Id).Single();
+    shareDatabase.UnitsInStock = shareDatabase.UnitsInStock - transactionDto.Amount;
+    var userDatabase = db.Users.Where(x => x.Name == transactionDto.Username).Single();
+    userDatabase.Cash = userDatabase.Cash - share!.StartPrice * transactionDto.Amount;
+    db.UserShares.Add(new UserShare
+    {
+      Amount = transactionDto.Amount,
+      Share = db.Shares.Where(x => x.Name == transactionDto.ShareName).First(),
+      User = db.Users.Where(x => x.Name == transactionDto.Username).First(),
+    });
+    db.SaveChanges();
+
+    //return TransactionDto with calculated values
+    return new TransactionDto
+    {
+      Amount = transactionDto.Amount,
+      IsUserBuy = transactionDto.IsUserBuy,
+      Price = share!.StartPrice * transactionDto.Amount,
+      ShareName = transactionDto.ShareName,
+      UnitsInStockNow = share.UnitsInStock - transactionDto.UnitsInStockNow,
+      Username = transactionDto.Username,
+    };
+
+
+  }
 }

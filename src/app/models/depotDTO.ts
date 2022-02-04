@@ -1,4 +1,4 @@
-export interface IDepotDTO {
+export interface DepotDto {
     shareName: string;
     amount: number;
 }

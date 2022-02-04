@@ -1,8 +1,8 @@
-import { IDepotDTO } from "./depotDTO";
+import { DepotDto } from "./depotDTO";
 
-export interface IUserDTO {
+export interface UserDto {
     id: number;
     name: string;
     cash: number;
-    depots: IDepotDTO[];
+    depots: DepotDto[];
 }

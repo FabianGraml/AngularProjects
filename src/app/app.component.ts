@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
-import { IShareDTO } from './models/shareDTO';
-import { ITransactionDTO } from './models/transactionDTO';
-import { IUserDTO } from './models/userDTO';
+import { ShareDto } from './models/shareDTO';
+import { TransactionDto } from './models/transactionDTO';
+import { UserDto } from './models/userDTO';
 
 @Component({
   selector: 'app-root',
@@ -13,20 +13,22 @@ import { IUserDTO } from './models/userDTO';
 export class AppComponent {
   private hubConnection!: HubConnection;
 
+  logs: string[] = [];
+
   userName: string = '';
   errorMsg!: string;
-  currentUser: IUserDTO = {} as IUserDTO;
+  currentUser: UserDto = {} as UserDto;
   amountOfConnectedUsers = 0;
   loggedIn = false;
-  shares: IShareDTO[] = [];
-  selectedShare: IShareDTO = {} as IShareDTO;
+  shares: ShareDto[] = [];
+  selectedShare: ShareDto = {} as ShareDto;
   shareAmount: number = 0;
-  transactionDTO!: ITransactionDTO;
+  transactionDto!: TransactionDto;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get<IShareDTO[]>('https://localhost:7174/api/Stock/GetStocks').subscribe(x => {
+    this.http.get<ShareDto[]>('https://localhost:7174/api/Stock/GetStocks').subscribe(x => {
       this.shares = x;
     }
     );
@@ -34,26 +36,37 @@ export class AppComponent {
       .withUrl('http://localhost:5174/stockHub')
       .build();
 
-    
-
     this.hubConnection.on('connectedUsers', (connectedUsers: number) => {
       this.amountOfConnectedUsers = connectedUsers;
       console.log(connectedUsers);
     });
-    this.hubConnection.on('showMsg', (message: string) => {
-      console.log(message);
+
+    this.hubConnection.on('transactionReceived', (transactionDto: TransactionDto) => {
+      if(transactionDto.shareName === ''){
+        alert("Cannot buy share as you wish to buy more shares than are in stock")
+        if(transactionDto.price > this.currentUser.cash){
+          alert("Cannot buy share as don't have enough money")
+        }
+      }
+      if(transactionDto.isUserBuy && transactionDto.shareName !== ''){
+        this.logs.push(`${transactionDto.username} bought ${transactionDto.amount} shares of ${transactionDto.shareName} for ${transactionDto.price}€`);
+        this.currentUser.cash -= transactionDto.price;
+      }
     });
+
+
   }
 
   login() {
     this.http
-      .get<IUserDTO>(
+      .get<UserDto>(
         'https://localhost:7174/api/Stock/Login?username=' + this.userName
       )
       .subscribe(
         (x) => {
           if (x.id != -1) {
             this.currentUser = x;
+            console.log(this.currentUser)
             this.hubConnection
               .start()
               .then(() => {
@@ -79,21 +92,13 @@ export class AppComponent {
       .catch((err) => console.log('error while stopping connection: ' + err));
   }
   buyShare() {
-    console.log('test');
-    // this.transactionDTO = {
-    //   username: this.currentUser.name,
-    //   shareName: this.selectedShare.name,
-    //   amount: this.shareAmount,
-    //   price: 12,
-    //   unitsInStockNow: this.selectedShare.unitsInStock - this.shareAmount,
-    //   isUserBuy: true,
-    // };
-
-    // this.hubConnection.send('transactionReceived', this.transactionDTO)
-    //   .then((x) => {
-    //     console.log(x);
-    //   })
-    //   .catch((err) => console.log('error while sending message: ' + err));
-    this.hubConnection.invoke('showMsg', ('Seas!!!!'));
+    console.log(this.selectedShare.name)
+     var transactionDto = {
+       username: this.currentUser.name,
+       shareName: this.selectedShare.name,
+       amount: this.shareAmount,
+       isUserBuy: true,
+     };
+     this.hubConnection.invoke('buyShare', transactionDto).catch((err) => console.log('error while sending message: ' + err));
   }
 }

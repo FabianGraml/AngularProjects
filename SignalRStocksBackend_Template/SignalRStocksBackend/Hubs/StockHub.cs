@@ -25,10 +25,6 @@ namespace SignalRStocksBackend.Hubs
       NotifyConnectedUsers();
       return base.OnDisconnectedAsync(exception);
     }
-    public void BuyStock(TransactionDto transactionDto)
-    {
-      Clients.All.SendAsync("transaction", transactionDto);
-    }
     public void NotifyConnectedUsers()
     {
       Clients.All.SendAsync("connectedUsers", NrConnectedUsers);
@@ -36,17 +32,8 @@ namespace SignalRStocksBackend.Hubs
     public void BuyShare(TransactionDto transactionDto)
     {
       Console.WriteLine("StockHub::BuyShare");
+      transactionDto = stockService.Buy(transactionDto);
       Clients.All.SendAsync("transactionReceived", transactionDto);
-    }
-    public void SellShare(TransactionDto transactionDto)
-    {
-      Clients.All.SendAsync("transactionReceived2", transactionDto);
-      Console.WriteLine("StockHub::SellShare");
-    }
-    public void ShowMsg(string message)
-    {
-      Console.WriteLine("StockHub::ShowMsg");
-      Clients.All.SendAsync("showMsg", message);
     }
   }
 }
