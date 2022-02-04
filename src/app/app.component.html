@@ -37,6 +37,7 @@
 </div>
 <hr />
 <div [hidden]="!loggedIn">
+  <div class="d-flex">
   <div class="container">
     <div class="row">
       <div class="col" style="text-align: center">
@@ -59,7 +60,13 @@
       </div>
     </div>
   </div>
+  <br>
   <hr>
 </div>
-
+</div>
+<select [(ngModel)]="selectedShare" class="form-select ">
+  <option *ngFor="let share of shares">{{share.name}}</option>
+</select>
+<input [(ngModel)]="shareAmount" type="number">
+<button (click)="buyShare()" class="btn btn-primary">Buy</button>
 <router-outlet></router-outlet>

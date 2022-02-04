@@ -43,4 +43,9 @@ public class StockController : ControllerBase
   {
     return Ok(stockService.Login(username));
   }
+  [HttpGet]
+  public IActionResult GetStocks()
+  {
+    return Ok(stockService.GetStocks());
+  }
 }

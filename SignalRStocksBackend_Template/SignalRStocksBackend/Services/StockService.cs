@@ -15,19 +15,7 @@ public class StockService
   public UserDto Login(string username)
   {
     var user = db.Users.FirstOrDefault(x => x.Name == username);
-    if (user != null)
-    {
-      return new UserDto {
-        Cash = user.Cash,
-        Id = user.Id,
-        Name = user.Name,
-        Depots = db.UserShares.Where(x => x.User!.Id == user.Id).Select(x => new DepotDto
-        {
-          Amount = x.Amount,
-          ShareName = x.Share!.Name,
-        }).ToList(),
-      };
-    } else
+    if (user == null)
     {
       return new UserDto
       {
@@ -37,6 +25,22 @@ public class StockService
         Depots = null!,
       };
     }
+    return new UserDto
+    {
+      Cash = user.Cash,
+      Id = user.Id,
+      Name = user.Name,
+      Depots = db.UserShares.Where(x => x.User!.Id == user.Id).Select(x => new DepotDto
+      {
+        Amount = x.Amount,
+        ShareName = x.Share!.Name,
+      }).ToList(),
+    };
+
   }
 
+  public ICollection<ShareDto> GetStocks()
+  {
+    return db.Shares.Select(x => new ShareDto().CopyPropertiesFrom(x)).ToList();
+  }
 }

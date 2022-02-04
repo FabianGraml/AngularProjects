@@ -33,15 +33,20 @@ namespace SignalRStocksBackend.Hubs
     {
       Clients.All.SendAsync("connectedUsers", NrConnectedUsers);
     }
-    public void Login(string userName)
+    public void BuyShare(TransactionDto transactionDto)
     {
-      NotifyConnectedUsers();
-      Clients.All.SendAsync("login", stockService.Login(userName));
+      Console.WriteLine("StockHub::BuyShare");
+      Clients.All.SendAsync("transactionReceived", transactionDto);
     }
-    public void Disconnect()
+    public void SellShare(TransactionDto transactionDto)
     {
-      NotifyConnectedUsers();
-      Clients.All.SendAsync("disconnect");
+      Clients.All.SendAsync("transactionReceived2", transactionDto);
+      Console.WriteLine("StockHub::SellShare");
+    }
+    public void ShowMsg(string message)
+    {
+      Console.WriteLine("StockHub::ShowMsg");
+      Clients.All.SendAsync("showMsg", message);
     }
   }
 }
