@@ -58,13 +58,17 @@ public class StockService
     var shareDatabase = db.Shares.Where(x => x.Id == share!.Id).Single();
     shareDatabase.UnitsInStock = shareDatabase.UnitsInStock - transactionDto.Amount;
     var userDatabase = db.Users.Where(x => x.Name == transactionDto.Username).Single();
-    userDatabase.Cash = userDatabase.Cash - share!.StartPrice * transactionDto.Amount;
-    db.UserShares.Add(new UserShare
+    if (userDatabase.Cash > share!.StartPrice * transactionDto.Amount && shareDatabase.UnitsInStock >= transactionDto.Amount)
     {
-      Amount = transactionDto.Amount,
-      Share = db.Shares.Where(x => x.Name == transactionDto.ShareName).First(),
-      User = db.Users.Where(x => x.Name == transactionDto.Username).First(),
-    });
+      userDatabase.Cash = userDatabase.Cash - share!.StartPrice * transactionDto.Amount;
+      db.UserShares.Add(new UserShare
+      {
+        Amount = transactionDto.Amount,
+        Share = db.Shares.Where(x => x.Name == transactionDto.ShareName).First(),
+        User = db.Users.Where(x => x.Name == transactionDto.Username).First(),
+      });
+    }
+   
     db.SaveChanges();
 
     //return TransactionDto with calculated values
@@ -72,7 +76,7 @@ public class StockService
     {
       Amount = transactionDto.Amount,
       IsUserBuy = transactionDto.IsUserBuy,
-      Price = share!.StartPrice * transactionDto.Amount,
+      Price = transactionDto.Price,
       ShareName = transactionDto.ShareName,
       UnitsInStockNow = share.UnitsInStock - transactionDto.UnitsInStockNow,
       Username = transactionDto.Username,

@@ -37,40 +37,73 @@
 </div>
 <hr />
 <div [hidden]="!loggedIn">
+  <div class="d-flex" style="text-align: center; justify-content: center; align-items: center;">
+     <h2>Hi, {{currentUser.name}} your balance is {{currentUser.cash | currency:'EUR':'€'}}</h2>
+  </div>
+</div>
+<div [hidden]="loggedIn == false">
+  <hr />
   <div class="d-flex">
-  <div class="container">
-    <div class="row">
-      <div class="col" style="text-align: center">
-        <label class="mt-3 fs-6 fw-bolder" style="text-align: center"
-          >Logged in as:
-        </label>
-        <br />
-        <label class="mt-3 fs-6 fw-bolder" style="text-align: center">{{
-          currentUser.name
-        }}</label>
-      </div>
-      <div class="col" style="text-align: center">
-        <label class="mt-3 fs-6 fw-bolder" style="text-align: center"
-          >Account Balance:</label
+    <div class="input-group w-auto ms-3" style="width: 25%">
+      <div>
+        <select [(ngModel)]="selectedShare" class="m-1 form-select">
+          <option *ngFor="let share of shares" [ngValue]="share">
+            {{ share.name }}
+          </option>
+        </select>
+        <input
+          class="m-1 form-control"
+          [(ngModel)]="shareAmount"
+          type="number"
+        />
+        <button
+          class="m-1 btn btn-success"
+          (click)="buyShare()"
+          [disabled]="shareAmount <= 0 || selectedShare.name == undefined"
         >
-        <br />
-        <label class="mt-3 fs-6 fw-bolder" style="text-align: center"
-          >{{ currentUser.cash }}€</label
+          Buy
+        </button>
+        <button
+          class="m-1 btn btn-danger"
+          (click)="sellShare()"
+          [disabled]="shareAmount <= 0 || selectedShare.name == undefined"
         >
+          Sell
+        </button>
       </div>
     </div>
   </div>
-  <br>
-  <hr>
 </div>
-</div>
-<select [(ngModel)]="selectedShare" class="form-select ">
-  <option *ngFor="let share of shares" [ngValue]="share">{{share.name}}</option>
-</select>
-<input [(ngModel)]="shareAmount" type="number">
-<button (click)="buyShare()" class="btn btn-primary" [disabled]="shareAmount <= 0 || selectedShare.name == undefined">Buy</button>
 
-<div>
-  <p *ngFor="let log of logs">{{log}}</p>
+<div [hidden]="!loggedIn || shareMarket.length < 0">
+<hr>
+<div  class="d-flex">
+<table>
+  <thead>
+    <tr>
+      <th>Share</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let share of shareMarket">
+      <td>{{ share.name }}</td>
+      <td>{{ share.val | currency:'EUR':'€' }}</td>
+    </tr>
+  </tbody>
+</table>
+  <canvas class="ms-5" baseChart [data]="lineChartData" type="line" [options]="lineChartOptions">
+  </canvas>
 </div>
+</div>
+
+<!-- ############################# Logs Section ############################# -->
+<div [hidden]="!loggedIn">
+  <hr>
+  <p *ngFor="let log of logs">{{ log }}</p>
+  
+</div>
+
+
+
 <router-outlet></router-outlet>

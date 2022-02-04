@@ -1,9 +1,9 @@
-﻿using MathNet.Numerics.Interpolation;
+using MathNet.Numerics.Interpolation;
 using Microsoft.AspNetCore.SignalR;
 using SignalRStocksBackend.DTOs;
 using SignalRStocksBackend.Entities;
 // ** comment in when the Hub is ready
-// using SignalRStocksBackend.Hubs;
+using SignalRStocksBackend.Hubs;
 
 namespace SignalRStocksBackend.Services;
 
@@ -11,7 +11,7 @@ public class StockTickerService
 {
     private readonly Random random = new();
     // ** comment in when the Hub is ready
-    // private readonly StockHub stockHub;  
+    private readonly StockHub stockHub;  
     private readonly StockContext db;
     private readonly Dictionary<string, List<Tuple<double, double>>> stockData = new();
     private readonly Dictionary<string, CubicSpline> splines = new();
@@ -25,10 +25,10 @@ public class StockTickerService
     public int TickSpeed { get; set; } = 1;
 
     // ** comment in when the Hub is ready
-    public StockTickerService(/* StockHub stockHub, */StockContext db)
+    public StockTickerService(StockHub stockHub, StockContext db)
     {
         // ** comment in when the Hub is ready
-        // this.stockHub = stockHub;
+        this.stockHub = stockHub;
         this.db = db;
         PrepareStockData();
         //PrintComparison("StockA");
@@ -131,11 +131,11 @@ public class StockTickerService
             }
             //Console.WriteLine($"StockService::SendNewStocks via Hub: {stocks.Count} stocks");
             // ** comment in when the Hub is ready
-            /*
+         
             if (stockHub.Clients != null)
             {
                 await stockHub.Clients.All.SendAsync("newStocks", stocks);
-            }*/
+            }
             x += step;
             int delay = TickSpeed > 0 ? 2000 / TickSpeed : 2000;
             await Task.Delay(delay);
