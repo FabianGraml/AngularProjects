@@ -29,4 +29,4 @@ These instructions will get you a copy of the project up and running on your loc
 - [Npm](https://www.npmjs.com) - Package Manager
 
 ### Authors
-- [Fabian Graml]
+- <u>Fabian Graml</u>
