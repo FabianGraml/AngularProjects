@@ -8,8 +8,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-- [Node.js]
-- [Angular CLI]
+- [Node.js](https://nodejs.org/en)
+- [Angular CLI](https://angular.io/cli)
 
 ### Installation
 
@@ -25,8 +25,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Built With
 
-- [Angular] - The web framework used
-- [Npm] - Package Manager
+- [Angular](https://angular.io) - The web framework used
+- [Npm](https://www.npmjs.com) - Package Manager
 
 ### Authors
 - [Fabian Graml]
