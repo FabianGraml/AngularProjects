@@ -12,14 +12,14 @@
   <hr />
   <div class="parent">
     <div class="productsTable">
-      <h3>Verfügbare Produkte</h3>
+      <h3>Available Products</h3>
 
       <!--Table for the available products-->
       <table class="table" style="float: left">
         <thead>
           <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Preis</th>
+            <th scope="col">Product</th>
+            <th scope="col">Price</th>
           </tr>
         </thead>
         <tbody>
@@ -54,7 +54,7 @@
                 class="btn btn-primary"
                 (click)="add()"
               >
-                Produkt Hinzufügen
+                Add Product
               </button>
             </th>
             <td></td>
@@ -66,7 +66,7 @@
                 (click)="addProduct()"
                 [disabled]="productName == '' || productPrice <= 0"
               >
-                Produkt hinzufügen
+                Add
               </button>
             </th>
             <td>
@@ -74,7 +74,7 @@
                 class="btn btn-danger"
                 (click)="isAddFormVisible = false; isAddButtonVisible = true"
               >
-                Abbrechen
+                Cancel
               </button>
             </td>
           </tr>
@@ -82,16 +82,16 @@
       </table>
     </div>
     <div class="cartTable">
-      <h3>Einkaufsliste</h3>
+      <h3>Shopping List</h3>
 
       <!--Table for the shopping cart-->
       <table class="table" style="float: right">
         <thead>
           <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Menge</th>
-            <th scope="col">Gesamtpreis</th>
-            <th scope="col">Aktion</th>
+            <th scope="col">Product</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Total Price</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -103,13 +103,13 @@
             </td>
             <td>
               <button class="btn btn-danger" [value]="item.id" (click)="deleteCartItem(item.id)">
-                Löschen
+                Delete
               </button>
             </td>
           </tr>
           <tr>
             <th scope="row"></th>
-            <td style="font-weight: bold">Gesamtpreis:</td>
+            <td style="font-weight: bold">Total Price:</td>
 
             <td style="font-weight: bold" [ngStyle]="{ color: budget >= total ? 'green' : 'red' }">
               {{ total | currency: "€ ":true }}
@@ -144,7 +144,7 @@
                 [disabled]="amount <= 0"
                 (click)="addToCart()"
               >
-                Hinzufügen
+                Add
               </button>
             </td>
             <td></td>

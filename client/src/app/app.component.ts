@@ -23,15 +23,15 @@ export class AppComponent {
   title = 'angular-template';
   products: Product[] = [{
     id: 0,
-    name: 'Brot',
+    name: 'Bread',
     price: 1.20
   }, {
     id: 1,
-    name: 'Milch',
+    name: 'Milk',
     price: 0.90
   }, {
     id: 2,
-    name: 'Zucker',
+    name: 'Sugar',
     price: 1.20
   }];
   cart: CartItem[] = [];

@@ -1,27 +1,32 @@
-# AngularTemplate
+# Shopping List
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.6.
+Simple implementation of a shopping list.
 
-## Development server
+## Getting started
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-## Code scaffolding
+### Prerequisites
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- [Node.js](https://nodejs.org/en)
+- [Angular CLI](https://angular.io/cli)
 
-## Build
+### Installation
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Clone the repository https://github.com/FabianGraml/AngularProjects.git
+2. Checkout this branch `git checkout 02-shopping-list`
+3. Install the dependencies `npm install`
 
-## Running unit tests
+### Running the Application
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Run `ng serve` for a dev server.
+2. Navigate to `http://localhost:4200/`
+3. The app will automatically reload if you change any of the source files.
 
-## Running end-to-end tests
+### Built With
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- [Angular](https://angular.io) - The web framework used
+- [Npm](https://www.npmjs.com) - Package Manager
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Authors
+- Fabian Graml
