@@ -1,27 +1,38 @@
-# AngularTemplate
+# Paylist Editor V1
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.6.
+Easily Manage Your Music Playlists with the Playlist Editor.
 
-## Development server
+Take control of your music library and make playlist management a breeze with the Playlist Editor. With its simple and straightforward design, you can quickly add or delete songs, manage multiple playlists, and find inspiration for your next musical masterpiece.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Getting started
 
-## Code scaffolding
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Prerequisites
 
-## Build
+- [Node.js](https://nodejs.org/en)
+- [Angular CLI](https://angular.io/cli)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Installation
 
-## Running unit tests
+1. Clone the repository https://github.com/FabianGraml/AngularProjects.git
+2. Checkout this branch `git checkout 03-playlist-editor-v1`
+3. Navigate to the `server` folder and install the dependencies `npm install`
+4. Add `.env` file and write `PORT=8000` to the file
+5. Navigate to the `client` folder and install the dependencies `npm install`
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Running the Application
 
-## Running end-to-end tests
+1. Navigate to the client project and run `ng serve` for a dev server.
+2. Navigate to the server project and run `npm run dev` for a dev server.
+2. Open a browser of your choice and navigate to `http://localhost:4200/`
+3. The app will automatically reload if you change any of the source files in the client project.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Built With
 
-## Further help
+- [Express](https://expressjs.com) - Web framework for Node.js
+- [Angular](https://angular.io) - The web framework used
+- [Npm](https://www.npmjs.com) - Package Manager
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Authors
+- Fabian Graml
