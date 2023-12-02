@@ -24,7 +24,7 @@ namespace TeeOnlineDb
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite("data source=C:\\Temp\\_Databases\\TeeOnline.db");
+                optionsBuilder.UseSqlite("data source=TeeOnlineDb\\TeeOnline.db");
             }
         }
 
